@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth scrolling */
+html { scroll-behavior: smooth; }
+
+/* Button utilities */
+.btn {
+  @apply px-5 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition;
+}
+.btn-outline {
+  @apply px-5 py-3 border border-white text-white rounded-lg hover:bg-white hover:text-black transition;
+}
+/* global.css or in a styled-JSX block */
+.service-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+}
+.service-card:hover {
+  transform: perspective(600px) rotateX(4deg) rotateY(-4deg) scale(1.03);
+  box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+}
+/* styles/globals.css */
+
+.wave-bg {
+  position: relative;
+  overflow: hidden;
+}
+.wave-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/wave.jpg") repeat-x bottom;
+  background-size: cover;
+  opacity: 0.5;
+  animation: wave-slide 20s linear infinite;
+  will-change: background-position;
+  z-index: 0;
+}
+
+@keyframes wave-slide {
+  from { background-position-x: 0; }
+  to   { background-position-x: 1000px; }
+}

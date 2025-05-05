@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { FiChevronDown, FiChevronUp, FiSearch } from "react-icons/fi";
 
 interface Faq {
   question: string;
@@ -13,13 +13,13 @@ interface Faq {
 const faqs: Faq[] = [
   {
     question: "What is e-Filing of income tax returns?",
-    answer: `E-filing of Income-tax returns is the process of filing Income-tax online. As per the income tax department, income tax returns can be filed through the online method only. However, the super senior citizens filing ITR using Form 1 or Form 4 are allowed to use the offline or paper mode.
+    answer: `E-filing of Income‑tax returns is the process of filing Income‑tax online. As per the income tax department, income tax returns can be filed through the online method only. However, the super senior citizens filing ITR using Form 1 or Form 4 are allowed to use the offline or paper mode.
 
-E-filing of Income‑tax returns can be done easily and quickly in the comfort of your home or office in just 4 minutes with Tax2win. Or you can simply visit the Income Tax e‑filing portal. You can learn both processes here.`,
+E-filing of Income‑tax returns can be done easily and quickly in the comfort of your home or office in just 4 minutes with Tax2win. Or you can simply visit the Income Tax e‑filing portal. You can learn both processes here.`,
   },
   {
     question: "Who should file an Income Tax Return?",
-    answer: `Every Individual, including an NRI, must file an Income tax return where Gross Total Income exceeds the basic exemption limit. For old tax regimes, this basic exemption limit is ₹2.5 lakh and for new tax regime, this basic exemption limit is ₹3 lakh for the individual filing income tax return. Senior citizens (aged 60–79) and super senior citizens (80+) must file if gross income exceeds ₹3 lakh and ₹5 lakh respectively.
+    answer: `Every Individual, including an NRI, must file an Income tax return where Gross Total Income exceeds the basic exemption limit. For old tax regimes, this basic exemption limit is ₹2.5 lakh and for new tax regime, this basic exemption limit is ₹3 lakh for the individual filing income tax return. Senior citizens (aged 60–79) and super senior citizens (80+) must file if gross income exceeds ₹3 lakh and ₹5 lakh respectively.
 
 ITR filing is also required if, in a financial year:
 • Deposited over ₹1 crore in current accounts.  
@@ -33,7 +33,7 @@ ITR filing is also required if, in a financial year:
   {
     question: "Where can I file an Income Tax Return in India?",
     answer: `Taxpayers can file their ITR via the Income Tax e‑filing portal: https://www.incometax.gov.in/iec/foportal/.  
-You can also file with Tax2win’s e‑filing portal in under 4 minutes. Its user‑friendly interface and expert assistance make it quick and easy. The due date for FY 2024‑25 (AY 2025‑26) is 31 July 2025.`,
+You can also file with Tax2win’s e‑filing portal in under 4 minutes. Its user‑friendly interface and expert assistance make it quick and easy. The due date for FY 2024‑25 (AY 2025‑26) is 31 July 2025.`,
   },
   {
     question: "What if I miss the due date of filing the Income Tax Return?",
@@ -63,8 +63,8 @@ Step 4: Click “FILE MY RETURN” and you’re done!`,
   },
   {
     question: "What are the penalties for not filing Income Tax Return in India?",
-    answer: `• Late filing fee up to ₹10 000 (₹5 000 if filed before 31 Dec).  
-• Interest at 1% per month on outstanding tax from the due date.  
+    answer: `• Late filing fee up to ₹10 000 (₹5 000 if filed before 31 Dec).  
+• Interest at 1% per month on outstanding tax from the due date.  
 • Loss of carry‑forward losses and other benefits.  
 • Potential prosecution under Section 276CC (fine/imprisonment).`,
   },
@@ -77,32 +77,74 @@ Step 4: Click “FILE MY RETURN” and you’re done!`,
   },
 ];
 
+const containerVariants = {
+  show: {
+    transition: { staggerChildren: 0.1 },
+  },
+};
+const itemVariants = {
+  hidden: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0 },
+};
+
 export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [filter, setFilter] = useState("");
+
+  const filtered = faqs.filter((f) =>
+    f.question.toLowerCase().includes(filter.toLowerCase())
+  );
 
   return (
     <section id="faq" className="pt-12 pb-24 bg-[#F1EFED]">
       <div className="max-w-4xl mx-auto px-4">
+        {/* Search bar */}
+        <div className="mb-8 flex items-center border border-gray-300 rounded-lg overflow-hidden">
+          <FiSearch className="ml-3 text-gray-500" size={20} />
+          <input
+            type="search"
+            placeholder="Search FAQs..."
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className="w-full px-4 py-2 bg-white focus:outline-none"
+          />
+        </div>
+
         <h2 className="text-4xl font-extrabold text-center mb-12">
-          FAQ's on ITR
+          FAQ’s on ITR
         </h2>
-        <div className="space-y-4">
-          {faqs.map((faq, i) => (
-            <div key={i} className="bg-white rounded-lg shadow-md overflow-hidden">
-              <button
-                onClick={() =>
-                  setOpenIndex(openIndex === i ? null : i)
-                }
-                className="w-full flex justify-between items-center px-6 py-4 text-left"
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+          className="space-y-4"
+        >
+          <AnimatePresence initial={false}>
+            {filtered.map((faq, i) => (
+              <motion.div
+                key={i}
+                variants={itemVariants}
+                exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+                transition={{ duration: 0.3 }}
+                className="bg-white rounded-lg shadow-md overflow-hidden"
               >
-                <span className="text-lg font-medium">{faq.question}</span>
-                {openIndex === i ? (
-                  <FiChevronUp className="text-2xl" />
-                ) : (
-                  <FiChevronDown className="text-2xl" />
-                )}
-              </button>
-              <AnimatePresence initial={false}>
+                <button
+                  onClick={() =>
+                    setOpenIndex(openIndex === i ? null : i)
+                  }
+                  className="w-full flex justify-between items-center px-6 py-4 text-left"
+                >
+                  <span className="text-lg font-medium">
+                    {faq.question}
+                  </span>
+                  {openIndex === i ? (
+                    <FiChevronUp className="text-2xl" />
+                  ) : (
+                    <FiChevronDown className="text-2xl" />
+                  )}
+                </button>
+
                 {openIndex === i && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
@@ -114,10 +156,16 @@ export default function FaqSection() {
                     <p className="whitespace-pre-line">{faq.answer}</p>
                   </motion.div>
                 )}
-              </AnimatePresence>
-            </div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {filtered.length === 0 && (
+          <p className="mt-8 text-center text-gray-600">
+            No FAQs match your search.
+          </p>
+        )}
       </div>
     </section>
   );

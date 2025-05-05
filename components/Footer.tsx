@@ -37,7 +37,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Company Bio or Logo */}
+        {/* Company Bio */}
         <div className="text-center md:text-left">
           <h3 className="text-xl font-semibold mb-2">Parasuraman Auditing Firm</h3>
           <p className="text-gray-400">
@@ -55,9 +55,7 @@ export default function Footer() {
             className="flex items-center space-x-2 group"
           >
             <FiLinkedin className="text-2xl transition-transform transform group-hover:scale-110 text-blue-500" />
-            <span className="hover:text-white transition-colors">
-              LinkedIn
-            </span>
+            <span className="hover:text-white transition-colors">LinkedIn</span>
           </a>
           <p className="text-sm text-gray-500 mt-4">
             © {new Date().getFullYear()} Parasuraman Auditing Firm. All rights reserved.

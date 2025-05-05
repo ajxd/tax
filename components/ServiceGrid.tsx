@@ -12,16 +12,17 @@ interface Option {
 }
 
 const options: Option[] = [
-  { icon: <FiMapPin size={32} />,   label: "In‑Person",     href: "https://calendly.com/cnotetax/appointment" },
-  { icon: <FiGlobe size={32} />,    label: "Remotely",      href: "https://cnotetax.clientportal.com" },
-  { icon: <FiPhone size={32} />,    label: "Over Phone",    href: "tel:+14163033600" },
+  { icon: <FiMapPin size={32} />,   label: "In‑Person",     href: "https://calendly.com/parasuraman/appointment" },
+  { icon: <FiGlobe size={32} />,    label: "Remotely",      href: "https://parasuraman-firm.clientportal.com" },
+  { icon: <FiPhone size={32} />,    label: "Over Phone",    href: "tel:+919985554909" },
   { icon: <FiFileText size={32} />, label: "Document Drop", href: "#contact" },
 ];
 
 export default function ServiceGrid() {
+  // generate 15 cubes for a lighter feel
   const cubes = useMemo(
     () =>
-      Array.from({ length: 40 }, (_, i) => {
+      Array.from({ length: 15 }, (_, i) => {
         const size = 10 + Math.random() * 50;     // 10px–60px
         return {
           id: i,
@@ -37,33 +38,37 @@ export default function ServiceGrid() {
   );
 
   return (
-    <section id="services" className="relative overflow-visible py-20 bg-[#FFFFFF]">
-      {/* Floating cubes */}
-      {cubes.map(({ id, top, left, size, delay, duration, direction }) => (
-        <div
-          key={id}
-          className="cube"
-          style={{
-            top: `${top}%`,
-            left: `${left}%`,
-            width: `${size}px`,
-            height: `${size}px`,
-            animationDelay: `${delay}s`,
-            animationDuration: `${duration}s`,
-            animationDirection: direction,
-          }}
-        />
-      ))}
+    <section id="services" className="relative overflow-hidden py-20 bg-white">
+      {/* Floating cubes (hidden on mobile) */}
+      <div className="pointer-events-none">
+        {cubes.map(({ id, top, left, size, delay, duration, direction }) => (
+          <div
+            key={id}
+            className="cube"
+            style={{
+              top: `${top}%`,
+              left: `${left}%`,
+              width: `${size}px`,
+              height: `${size}px`,
+              animationDelay: `${delay}s`,
+              animationDuration: `${duration}s`,
+              animationDirection: direction,
+            }}
+          />
+        ))}
+      </div>
 
       {/* Main content */}
-      <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
-        <h2 className="text-3xl font-bold mb-6">How We File Your Taxes</h2>
-        <p className="text-lg text-gray-700 mb-8">
+      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 text-center">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
+          How We File Your Taxes
+        </h2>
+        <p className="text-base sm:text-lg text-gray-700 mb-8">
           Ready to get started? Simply click below to file your taxes through our secure form.
         </p>
         <Link
           href="/file-your-tax"
-          className="inline-block px-8 py-4 bg-gradient-to-r from-green-600 to-green-700 text-white text-lg font-medium rounded-full shadow-lg hover:opacity-90 transition"
+          className="inline-block px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-green-600 to-green-700 text-white text-base sm:text-lg font-medium rounded-full shadow-lg hover:opacity-90 transition"
         >
           File Your Tax
         </Link>
@@ -73,13 +78,10 @@ export default function ServiceGrid() {
       <style jsx>{`
         .cube {
           position: absolute;
-          border: solid 4px #a70000;
+          border: 3px solid #a70000;
           transform-origin: top left;
           transform: scale(0) rotate(0deg) translate(-50%, -50%);
-          animation-name: cube;
-          animation-timing-function: ease-in;
-          animation-fill-mode: forwards;
-          animation-iteration-count: infinite;
+          animation: cube  ${/** duration is inline */""} ease-in infinite forwards;
         }
         @keyframes cube {
           0% {
@@ -93,6 +95,11 @@ export default function ServiceGrid() {
           100% {
             transform: scale(0) rotate(360deg) translate(-50%, -50%);
             opacity: 0;
+          }
+        }
+        @media (max-width: 768px) {
+          .cube {
+            display: none;
           }
         }
       `}</style>

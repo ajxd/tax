@@ -1,5 +1,6 @@
 // components/Header.tsx
 "use client";
+
 import Link from "next/link";
 import { useState } from "react";
 
@@ -15,20 +16,18 @@ export default function Header() {
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden lg:flex items-center space-x-8">
-          <Link href="#about" className="text-white hover:text-blue-300">
+        <div className="hidden lg:flex items-center space-x-8 text-white">
+          <Link href="/" className="hover:text-blue-300">
+            Home
+          </Link>
+          <Link href="#about" className="hover:text-blue-300">
             About Us
           </Link>
-          <Link
-            href="https://cnotetax.clientportal.com"
-            className="text-white hover:text-blue-300"
-          >
+          <Link href="/file-your-tax" className="hover:text-blue-300">
             File Your Tax
           </Link>
           <div className="relative group">
-            <button className="text-white hover:text-blue-300">
-              Services ▾
-            </button>
+            <button className="hover:text-blue-300">Services ▾</button>
             <ul className="absolute left-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
               <li>
                 <Link
@@ -64,13 +63,10 @@ export default function Header() {
               </li>
             </ul>
           </div>
-          <Link
-            href="https://cnotetax.ca/login"
-            className="text-white hover:text-blue-300"
-          >
+          <Link href="https://cnotetax.ca/login" className="hover:text-blue-300">
             Login
           </Link>
-          <Link href="#contact" className="text-white hover:text-blue-300">
+          <Link href="#contact" className="hover:text-blue-300">
             Contact Us
           </Link>
         </div>
@@ -78,7 +74,7 @@ export default function Header() {
         {/* Mobile hamburger */}
         <button
           className="lg:hidden text-white text-2xl"
-          onClick={() => setMobileOpen(!mobileOpen)}
+          onClick={() => setMobileOpen((o) => !o)}
         >
           ☰
         </button>
@@ -88,41 +84,55 @@ export default function Header() {
       {mobileOpen && (
         <div className="lg:hidden absolute top-full left-0 w-full bg-black bg-opacity-80 py-4">
           <Link
+            href="/"
+            className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+          >
+            Home
+          </Link>
+          <Link
             href="#about"
             className="block px-6 py-2 text-white hover:bg-white hover:text-black"
           >
             About Us
           </Link>
           <Link
-            href="https://cnotetax.clientportal.com"
+            href="/file-your-tax"
             className="block px-6 py-2 text-white hover:bg-white hover:text-black"
           >
             File Your Tax
           </Link>
-          <Link
-            href="/income-tax-services"
-            className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+          <button
+            className="w-full text-left px-6 py-2 text-white hover:bg-white hover:text-black"
+            onClick={() => setMobileOpen((o) => !o)}
           >
-            Income Tax Services
-          </Link>
-          <Link
-            href="/business-tax-services"
-            className="block px-6 py-2 text-white hover:bg-white hover:text-black"
-          >
-            Business Tax Services
-          </Link>
-          <Link
-            href="/gst-tax-services"
-            className="block px-6 py-2 text-white hover:bg-white hover:text-black"
-          >
-            GST Tax Services
-          </Link>
-          <Link
-            href="/gst-number-registration"
-            className="block px-6 py-2 text-white hover:bg-white hover:text-black"
-          >
-            GST Number Registration
-          </Link>
+            Services ▾
+          </button>
+          <div className="bg-black bg-opacity-90">
+            <Link
+              href="/income-tax-services"
+              className="block px-8 py-2 text-white hover:bg-white hover:text-black"
+            >
+              Income Tax Services
+            </Link>
+            <Link
+              href="/business-tax-services"
+              className="block px-8 py-2 text-white hover:bg-white hover:text-black"
+            >
+              Business Tax Services
+            </Link>
+            <Link
+              href="/gst-tax-services"
+              className="block px-8 py-2 text-white hover:bg-white hover:text-black"
+            >
+              GST Tax Services
+            </Link>
+            <Link
+              href="/gst-number-registration"
+              className="block px-8 py-2 text-white hover:bg-white hover:text-black"
+            >
+              GST Number Registration
+            </Link>
+          </div>
           <Link
             href="https://cnotetax.ca/login"
             className="block px-6 py-2 text-white hover:bg-white hover:text-black"

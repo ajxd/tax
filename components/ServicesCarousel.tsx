@@ -41,7 +41,8 @@ const services: Service[] = [
 export default function ServicesCarousel() {
   const [index, setIndex] = useState(0);
   const len = services.length;
-  // initialize ref to null so TS is happy
+
+  // initialize ref to null to satisfy TS
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -50,7 +51,9 @@ export default function ServicesCarousel() {
     }, 5000);
 
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
     };
   }, [len]);
 
@@ -75,13 +78,13 @@ export default function ServicesCarousel() {
         </motion.a>
       ))}
 
-      {/* simple dots */}
+      {/* pagination dots */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {services.map((_, i) => (
           <button
             key={i}
             onClick={() => setIndex(i)}
-            className={`w-3 h-3 rounded-full ${
+            className={`w-3 h-3 rounded-full transition-colors ${
               i === index ? "bg-blue-600" : "bg-gray-300"
             }`}
           />

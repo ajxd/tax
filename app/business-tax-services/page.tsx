@@ -19,41 +19,41 @@ export default function BusinessTaxServicesPage() {
 
   // Features list
   const features = [
-    "Corporate Returns & Advisory",
-    "Tax Planning & Strategy",
-    "GST Compliance & Filing",
-    "Audit Support & Representation",
-    "Year‑End Financial Reporting",
-    "Small Business Consulting",
+    "Corporate Tax Returns",
+    "Partnership & Sole Proprietorship Filings",
+    "GST/HST Reporting & Compliance",
+    "CRA Audit Support",
+    "Year‑End Tax Planning",
+    "Tax Advisory & Consultations",
   ];
 
   // Why Choose Us items
   const whyChoose = [
     {
       icon: <FiClock size={32} />,
-      title: "Fast Turnaround",
-      desc: "Complete your filings quickly with our streamlined, business‑focused process.",
+      title: "Timely Filings",
+      desc: "We ensure all your returns are filed accurately and on time, avoiding penalties.",
     },
     {
       icon: <FiDollarSign size={32} />,
-      title: "Max Savings",
-      desc: "We optimize deductions and credits to keep more money in your business.",
+      title: "Maximized Savings",
+      desc: "Our experts identify every deduction and credit to minimize your liability.",
     },
     {
       icon: <FiShield size={32} />,
-      title: "Secure & Confidential",
-      desc: "Your financials are protected with enterprise‑grade security.",
+      title: "Regulatory Compliance",
+      desc: "Stay compliant with evolving corporate and GST/HST regulations.",
     },
     {
       icon: <FiUsers size={32} />,
-      title: "Expert Support",
-      desc: "Dedicated CAs specialize in corporate tax to guide you every step.",
+      title: "Dedicated Support",
+      desc: "Personalized assistance from specialists who understand your business.",
     },
   ];
 
-  // Refund Estimator state (demo for corporate refund scenario)
+  // Refund Estimator state
   const [income, setIncome] = useState(100000);
-  const estimatedRefund = income * 0.2; // assume 20% savings
+  const estimatedRefund = income * 0.1; // 10% assumption
 
   // Parallax for banner image
   const { scrollY } = useViewportScroll();
@@ -61,7 +61,7 @@ export default function BusinessTaxServicesPage() {
 
   return (
     <>
-      {/* HERO with NAV overlay */}
+      {/* HERO with NAV overlaid */}
       <section id="hero" className="relative h-screen overflow-hidden">
         <video
           className="absolute inset-0 w-full h-full object-cover"
@@ -73,12 +73,12 @@ export default function BusinessTaxServicesPage() {
         />
         <div className="absolute inset-0 bg-black/60" />
 
-        {/* Navbar */}
+        {/* Nav bar overlay */}
         <nav className="absolute top-0 left-0 w-full z-20 px-6 md:px-16 py-6 flex justify-between items-center">
           <Link href="/">
             <img
               src="/Blue Minimalist Financial Consulting Agency Logo.png"
-              alt="Logo"
+              alt="Company Logo"
               className="h-20 md:h-24 lg:h-28 object-contain drop-shadow-lg"
             />
           </Link>
@@ -94,10 +94,26 @@ export default function BusinessTaxServicesPage() {
               <button className="hover:text-blue-300">Services ▾</button>
               {servicesOpen && (
                 <ul className="absolute top-full left-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg">
-                  <li><Link href="/income-tax-services" className="block px-4 py-2 hover:bg-gray-100">Income Tax Services</Link></li>
-                  <li><Link href="/business-tax-services" className="block px-4 py-2 hover:bg-gray-100">Business Tax Services</Link></li>
-                  <li><Link href="/gst-tax-services" className="block px-4 py-2 hover:bg-gray-100">GST Tax Services</Link></li>
-                  <li><Link href="/gst-number-registration" className="block px-4 py-2 hover:bg-gray-100">GST Number Registration</Link></li>
+                  <li>
+                    <Link href="/income-tax-services" className="block px-4 py-2 hover:bg-gray-100">
+                      Income Tax Services
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/business-tax-services" className="block px-4 py-2 hover:bg-gray-100">
+                      Business Tax Services
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/gst-tax-services" className="block px-4 py-2 hover:bg-gray-100">
+                      GST Tax Services
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/gst-number-registration" className="block px-4 py-2 hover:bg-gray-100">
+                      GST Number Registration
+                    </Link>
+                  </li>
                 </ul>
               )}
             </div>
@@ -111,18 +127,12 @@ export default function BusinessTaxServicesPage() {
           </button>
         </nav>
 
-        {/* Mobile menu */}
+        {/* Mobile dropdown */}
         {mobileOpen && (
           <div className="lg:hidden absolute top-[72px] left-0 w-full bg-black bg-opacity-90 py-4 z-20">
-            {["Home", "About Us", "File Your Tax"].map((text, i) => (
-              <Link
-                key={i}
-                href={text === "Home" ? "/" : text === "File Your Tax" ? "/file-your-tax" : "#about"}
-                className="block px-6 py-2 text-white hover:bg-white hover:text-black"
-              >
-                {text}
-              </Link>
-            ))}
+            <Link href="/" className="block px-6 py-2 text-white hover:bg-white hover:text-black">Home</Link>
+            <Link href="#about" className="block px-6 py-2 text-white hover:bg-white hover:text-black">About Us</Link>
+            <Link href="/file-your-tax" className="block px-6 py-2 text-white hover:bg-white hover:text-black">File Your Tax</Link>
             <button
               className="w-full text-left px-6 py-2 text-white hover:bg-white hover:text-black"
               onClick={() => setServicesOpen(!servicesOpen)}
@@ -131,29 +141,25 @@ export default function BusinessTaxServicesPage() {
             </button>
             {servicesOpen && (
               <div className="bg-black bg-opacity-90">
-                {[
-                  { href: "/income-tax-services", label: "Income Tax Services" },
-                  { href: "/business-tax-services", label: "Business Tax Services" },
-                  { href: "/gst-tax-services", label: "GST Tax Services" },
-                  { href: "/gst-number-registration", label: "GST Number Registration" },
-                ].map((s) => (
-                  <Link
-                    key={s.href}
-                    href={s.href}
-                    className="block px-8 py-2 text-white hover:bg-white hover:text-black"
-                  >
-                    {s.label}
-                  </Link>
-                ))}
+                <Link href="/income-tax-services" className="block px-8 py-2 text-white hover:bg-white hover:text-black">
+                  Income Tax Services
+                </Link>
+                <Link href="/business-tax-services" className="block px-8 py-2 text-white hover:bg-white hover:text-black">
+                  Business Tax Services
+                </Link>
+                <Link href="/gst-tax-services" className="block px-8 py-2 text-white hover:bg-white hover:text-black">
+                  GST Tax Services
+                </Link>
+                <Link href="/gst-number-registration" className="block px-8 py-2 text-white hover:bg-white hover:text-black">
+                  GST Number Registration
+                </Link>
               </div>
             )}
-            <Link href="#contact" className="block px-6 py-2 text-white hover:bg-white hover:text-black">
-              Contact Us
-            </Link>
+            <Link href="#contact" className="block px-6 py-2 text-white hover:bg-white hover:text-black">Contact Us</Link>
           </div>
         )}
 
-        {/* Hero Content */}
+        {/* Hero content */}
         <div className="relative z-10 max-w-6xl mx-auto flex items-center h-full px-6">
           <motion.div
             className="w-full md:w-1/2 text-white space-y-6"
@@ -165,7 +171,7 @@ export default function BusinessTaxServicesPage() {
               Business Tax Services
             </h1>
             <p className="text-lg md:text-xl">
-              Expert corporate & business tax filing—accurate, compliant, maximized savings.
+              Comprehensive solutions for corporations, partnerships, and self‑employed.
             </p>
             <Link
               href="/file-your-tax"
@@ -182,7 +188,7 @@ export default function BusinessTaxServicesPage() {
           className="hidden md:block absolute top-0 right-0 w-1/2 h-full"
         >
           <img
-            src="/banner.png"
+            src="/services/business-tax.jpeg"
             alt="Business Tax Illustration"
             className="w-full h-full object-cover rounded-l-lg shadow-lg"
           />
@@ -235,12 +241,12 @@ export default function BusinessTaxServicesPage() {
           </div>
         </section>
 
-        {/* REFUND ESTIMATOR */}
+        {/* ESTIMATOR */}
         <section className="py-16 bg-white">
           <div className="max-w-2xl mx-auto px-6 text-center space-y-6">
-            <h2 className="text-3xl font-bold">Estimate Your Savings</h2>
+            <h2 className="text-3xl font-bold">Estimate Your Tax Savings</h2>
             <p className="text-gray-700">
-              Drag the slider to enter your business revenue and see estimated tax savings.
+              Adjust your revenue slider to see a rough estimate of potential savings.
             </p>
             <div className="flex items-center space-x-4">
               <span className="text-gray-700 font-medium">$0</span>
@@ -248,7 +254,7 @@ export default function BusinessTaxServicesPage() {
                 type="range"
                 min={0}
                 max={500000}
-                step={10000}
+                step={5000}
                 value={income}
                 onChange={(e) => setIncome(Number(e.target.value))}
                 className="w-full"
@@ -256,7 +262,7 @@ export default function BusinessTaxServicesPage() {
               <span className="text-gray-700 font-medium">$500k+</span>
             </div>
             <div className="text-4xl font-extrabold text-blue-600">
-              <CountUp end={estimatedRefund} duration={1.5} prefix="$" decimals={0} /> estimated savings
+              <CountUp end={estimatedRefund} duration={1.5} prefix="$" decimals={0} /> potential savings
             </div>
           </div>
         </section>
@@ -296,7 +302,7 @@ export default function BusinessTaxServicesPage() {
             >
               <h2 className="text-3xl font-extrabold">Talk to an Expert</h2>
               <p className="text-gray-700">
-                Our corporate tax specialists are ready to guide you every step of the way.
+                Have questions? Our dedicated business tax specialists are ready to help.
               </p>
               <a
                 href={whatsappLink}
@@ -310,7 +316,6 @@ export default function BusinessTaxServicesPage() {
           </div>
         </section>
 
-        {/* FOOTER */}
         <Footer />
       </main>
     </>

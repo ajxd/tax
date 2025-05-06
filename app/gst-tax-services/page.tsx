@@ -6,7 +6,6 @@ import Link from "next/link";
 import Footer from "@/components/Footer";
 import { FiClock, FiDollarSign, FiShield, FiUsers, FiPhone } from "react-icons/fi";
 import { motion, useViewportScroll, useTransform } from "framer-motion";
-import CountUp from "react-countup";
 
 export default function GstTaxServicesPage() {
   const whatsappLink =
@@ -18,39 +17,37 @@ export default function GstTaxServicesPage() {
 
   const features = [
     "GST Registration & Amendments",
-    "GST Return Filing",
-    "Input Tax Credit Management",
-    "E‑Invoicing Support",
-    "GST Advisory & Compliance",
-    "GST Audit Representation",
+    "GSTR‑1 & GSTR‑3B Return Filing",
+    "Input Tax Credit Reconciliation",
+    "E‑Invoicing on IRP Portal",
+    "GST Compliance Advisory",
+    "GST Audit & Assessment Support",
   ];
 
   const whyChoose = [
     {
       icon: <FiClock size={32} />,
-      title: "Timely Filing",
-      desc: "Never miss a GST deadline with our automated reminders & filings.",
+      title: "On‑Time Filing",
+      desc: "Automated reminders and prompt submissions so you never miss due dates.",
     },
     {
       icon: <FiDollarSign size={32} />,
-      title: "Max Credits",
-      desc: "We ensure you claim every input tax credit you’re entitled to.",
+      title: "Optimize Credits",
+      desc: "We help you claim every eligible input tax credit under IGST, CGST & SGST.",
     },
     {
       icon: <FiShield size={32} />,
       title: "Fully Compliant",
-      desc: "Stay audit‑ready with our rigorous review process.",
+      desc: "Rigorous checks ensure your returns stand up to any GST scrutiny.",
     },
     {
       icon: <FiUsers size={32} />,
-      title: "Dedicated Team",
-      desc: "GST specialists guide you through complex regulations.",
+      title: "Expert Team",
+      desc: "Chartered Accountants with deep GST expertise guiding you every step.",
     },
   ];
 
-  const [turnover, setTurnover] = useState(100000);
-  const estimatedCredit = turnover * 0.18;
-
+  // parallax for desktop illustration
   const { scrollY } = useViewportScroll();
   const parallax = useTransform(scrollY, [0, 300], [0, 100]);
 
@@ -78,9 +75,15 @@ export default function GstTaxServicesPage() {
             />
           </Link>
           <div className="hidden lg:flex items-center space-x-6 text-white">
-            <Link href="/" className="hover:text-blue-300">Home</Link>
-            <Link href="#about" className="hover:text-blue-300">About Us</Link>
-            <Link href="/file-your-tax" className="hover:text-blue-300">File Your Tax</Link>
+            <Link href="/" className="hover:text-blue-300">
+              Home
+            </Link>
+            <Link href="#about" className="hover:text-blue-300">
+              About Us
+            </Link>
+            <Link href="/file-your-tax" className="hover:text-blue-300">
+              File Your Tax
+            </Link>
             <div
               className="relative"
               onMouseEnter={() => setServicesOpen(true)}
@@ -88,12 +91,12 @@ export default function GstTaxServicesPage() {
             >
               <button className="hover:text-blue-300">Services ▾</button>
               {servicesOpen && (
-                <ul className="absolute top-full left-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg">
+                <ul className="absolute top-full left-0 mt-2 w-56 bg-white text-black rounded-lg shadow-lg">
                   {[
                     { href: "/income-tax-services", label: "Income Tax Services" },
                     { href: "/business-tax-services", label: "Business Tax Services" },
                     { href: "/gst-tax-services", label: "GST Tax Services" },
-                    { href: "/gst-number-registration", label: "GST Number Registration" },
+                    { href: "/gst-number-registration", label: "GST Registration" },
                   ].map((s) => (
                     <li key={s.href}>
                       <Link href={s.href} className="block px-4 py-2 hover:bg-gray-100">
@@ -104,11 +107,15 @@ export default function GstTaxServicesPage() {
                 </ul>
               )}
             </div>
-            <Link href="#contact" className="hover:text-blue-300">Contact Us</Link>
+            <Link href="#contact" className="hover:text-blue-300">
+              Contact Us
+            </Link>
           </div>
+
           <button
             className="lg:hidden text-white text-2xl"
-            onClick={() => setMobileOpen(!mobileOpen)}
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label="Toggle menu"
           >
             ☰
           </button>
@@ -126,40 +133,33 @@ export default function GstTaxServicesPage() {
                 key={it.href}
                 href={it.href}
                 className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+                onClick={() => setMobileOpen(false)}
               >
                 {it.label}
               </Link>
             ))}
             <button
               className="w-full text-left px-6 py-2 text-white hover:bg-white hover:text-black"
-              onClick={() => setServicesOpen(!servicesOpen)}
+              onClick={() => setServicesOpen((o) => !o)}
             >
               Services ▾
             </button>
             {servicesOpen && (
-              <div className="bg-black bg-opacity-90">
-                {[
-                  { href: "/income-tax-services", label: "Income Tax Services" },
-                  { href: "/business-tax-services", label: "Business Tax Services" },
-                  { href: "/gst-tax-services", label: "GST Tax Services" },
-                  { href: "/gst-number-registration", label: "GST Number Registration" },
-                ].map((s) => (
-                  <Link
-                    key={s.href}
-                    href={s.href}
-                    className="block px-8 py-2 text-white hover:bg-white hover:text-black"
-                  >
-                    {s.label}
-                  </Link>
-                ))}
+              <div className="pl-4">
+                <Link href="/income-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
+                  Income Tax Services
+                </Link>
+                <Link href="/business-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
+                  Business Tax Services
+                </Link>
+                <Link href="/gst-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
+                  GST Tax Services
+                </Link>
+                <Link href="/gst-number-registration" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
+                  GST Registration
+                </Link>
               </div>
             )}
-            <Link
-              href="#contact"
-              className="block px-6 py-2 text-white hover:bg-white hover:text-black"
-            >
-              Contact Us
-            </Link>
           </div>
         )}
 
@@ -179,7 +179,7 @@ export default function GstTaxServicesPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Comprehensive GST solutions—registration, filing, credit management & compliance.
+            Complete GST registration, filings & compliance support for Indian businesses.
           </motion.p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
@@ -212,7 +212,6 @@ export default function GstTaxServicesPage() {
         </motion.div>
       </section>
 
-      {/* MAIN CONTENT */}
       <main className="flex flex-col">
         {/* FEATURES */}
         <section className="py-12 sm:py-16 bg-white">
@@ -255,34 +254,6 @@ export default function GstTaxServicesPage() {
                 <p className="text-gray-600 text-sm">{item.desc}</p>
               </motion.div>
             ))}
-          </div>
-        </section>
-
-        {/* CREDIT ESTIMATOR */}
-        <section className="py-12 sm:py-16 bg-white">
-          <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center space-y-6">
-            <h2 className="text-2xl sm:text-3xl font-bold">
-              Estimate Your Input Tax Credit
-            </h2>
-            <p className="text-gray-600">
-              Drag the slider to enter your turnover and see your potential credit.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              <span className="text-gray-700 font-medium">$0</span>
-              <input
-                type="range"
-                min={0}
-                max={1000000}
-                step={50000}
-                value={turnover}
-                onChange={(e) => setTurnover(Number(e.target.value))}
-                className="w-full"
-              />
-              <span className="text-gray-700 font-medium">$1M+</span>
-            </div>
-            <div className="text-3xl sm:text-4xl font-extrabold text-blue-600">
-              <CountUp end={estimatedCredit} duration={1.5} prefix="$" decimals={0} /> estimated credit
-            </div>
           </div>
         </section>
 

@@ -2,7 +2,10 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { LazyMotion, domAnimation, motion, Variants } from "framer-motion";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 interface Service {
   title: string;
@@ -15,87 +18,120 @@ const services: Service[] = [
   {
     title: "Income Tax Services",
     image: "/services/income-tax.jpg",
-    href: "#income-tax-services",
+    href: "/income-tax-services",
     description: "Maximize your refund with expert filing & deductions.",
   },
   {
     title: "Business Tax Services",
     image: "/services/business-tax.jpeg",
-    href: "#business-tax-services",
+    href: "/business-tax-services",
     description: "Corporate returns, advisory, and tax planning.",
   },
   {
     title: "GST Tax Services",
     image: "/services/gst-services.jpg",
-    href: "#gst-tax-services",
+    href: "/gst-tax-services",
     description: "GST filing, input credits, and compliance.",
   },
   {
     title: "GST Number Registration",
     image: "/services/gst-registration.jpeg",
-    href: "#gst-number-registration",
+    href: "/gst-number-registration",
     description: "Fast setup of your GST/HST account and filings.",
   },
 ];
 
+// Tween for slide transitions
+const trackVariants: Variants = {
+  animate: {
+    transition: { type: "tween", ease: "easeInOut", duration: 0.8 },
+  },
+};
+
 export default function ServicesCarousel() {
   const [index, setIndex] = useState(0);
   const len = services.length;
-  // initialize ref with null
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const hoverRef = useRef(false);
 
-  // auto‑advance every 5 seconds
+  // Auto‑advance every 5s, pause on hover
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setIndex((prev) => (prev + 1) % len);
+    const tid = setInterval(() => {
+      if (!hoverRef.current) {
+        setIndex((i) => (i + 1) % len);
+      }
     }, 5000);
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
+    return () => clearInterval(tid);
   }, [len]);
 
+  const prev = () => setIndex((i) => (i - 1 + len) % len);
+  const next = () => setIndex((i) => (i + 1) % len);
+
   return (
-    <div className="relative w-full overflow-hidden px-4 py-8 md:py-12">
-      {/* Slides container */}
-      <div className="relative h-64 md:h-96">
-        {services.map((svc, i) => (
-          <motion.a
-            key={svc.title}
-            href={svc.href}
-            className="absolute inset-0 flex flex-col items-center justify-center bg-white rounded-lg shadow-lg p-4 md:p-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: i === index ? 1 : 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            {/* Image */}
-            <div className="w-full h-32 md:h-40 overflow-hidden rounded-md mb-4">
-              <img
-                src={svc.image}
-                alt={svc.title}
-                className="w-full h-full object-cover"
-              />
+    <div
+      className="relative w-full overflow-hidden"
+      onMouseEnter={() => (hoverRef.current = true)}
+      onMouseLeave={() => (hoverRef.current = false)}
+    >
+      <LazyMotion features={domAnimation}>
+        {/* Slides */}
+        <motion.div
+          className="flex"
+          variants={trackVariants}
+          animate="animate"
+          style={{ transform: `translateX(-${index * 100}%)` }}
+        >
+          {services.map((svc) => (
+            <div
+              key={svc.title}
+              className="min-w-full flex-shrink-0 relative h-48 sm:h-64 md:h-80 lg:h-[500px]"
+            >
+              <Link href={svc.href} className="block w-full h-full">
+                <Image
+                  src={svc.image}
+                  alt={svc.title}
+                  fill
+                  style={{ objectFit: "cover" }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                <div className="absolute bottom-4 left-4 md:left-10 max-w-xs text-white">
+                  <h3 className="text-xl sm:text-2xl md:text-4xl font-bold">
+                    {svc.title}
+                  </h3>
+                  <p className="mt-1 text-sm sm:text-base md:text-lg bg-black/50 inline-block px-3 py-1 rounded">
+                    {svc.description}
+                  </p>
+                </div>
+              </Link>
             </div>
-            {/* Title */}
-            <h3 className="text-lg md:text-xl font-semibold text-center mb-2">
-              {svc.title}
-            </h3>
-            {/* Description */}
-            <p className="text-sm md:text-base text-gray-600 text-center">
-              {svc.description}
-            </p>
-          </motion.a>
-        ))}
-      </div>
+          ))}
+        </motion.div>
+      </LazyMotion>
+
+      {/* Prev / Next */}
+      <button
+        onClick={prev}
+        aria-label="Previous slide"
+        className="absolute top-1/2 left-2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow"
+      >
+        <FiChevronLeft size={24} />
+      </button>
+      <button
+        onClick={next}
+        aria-label="Next slide"
+        className="absolute top-1/2 right-2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow"
+      >
+        <FiChevronRight size={24} />
+      </button>
 
       {/* Pagination dots */}
-      <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 space-x-2">
+      <div className="absolute bottom-2 w-full flex justify-center space-x-1">
         {services.map((_, i) => (
           <button
             key={i}
             onClick={() => setIndex(i)}
             aria-label={`Go to slide ${i + 1}`}
-            className={`w-3 h-3 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              i === index ? "bg-blue-600" : "bg-gray-300"
+            className={`h-2 w-6 rounded-full transition-all duration-300 ${
+              i === index ? "bg-white" : "bg-white/50"
             }`}
           />
         ))}

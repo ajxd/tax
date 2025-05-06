@@ -8,34 +8,34 @@ import { FiClock, FiDollarSign, FiShield, FiUsers, FiPhone } from "react-icons/f
 import { motion, useViewportScroll, useTransform } from "framer-motion";
 
 const features = [
-  "GSTIN Application Assistance",
-  "HST/PST Registration",
-  "GST Amendments & Updates",
+  "New GSTIN Registration",
+  "Amendment of GSTIN Details",
+  "Composition Scheme Registration",
   "Cancellation Processing",
+  "Address & Contact Update",
   "Compliance Guidance",
-  "Post‑Registration Support",
 ];
 
 const whyChoose = [
   {
     icon: <FiClock size={32} />,
-    title: "Quick Setup",
-    desc: "Get your GST number in record time with our streamlined process.",
+    title: "Rapid Processing",
+    desc: "Obtain your GSTIN within 24–48 hours via our streamlined e‑filing.",
   },
   {
     icon: <FiDollarSign size={32} />,
-    title: "Error‑Free Filing",
-    desc: "We handle all paperwork and ensure 100% accuracy.",
+    title: "Zero Errors",
+    desc: "Our experts ensure 100% accuracy on all application paperwork.",
   },
   {
     icon: <FiShield size={32} />,
     title: "Fully Compliant",
-    desc: "We keep you up‑to‑date with any legislative changes.",
+    desc: "Stay updated with every GST rule change and amendment.",
   },
   {
     icon: <FiUsers size={32} />,
     title: "Dedicated CA Support",
-    desc: "Our CAs guide you at every step and answer all your queries.",
+    desc: "Chartered Accountants guide you at every step of registration.",
   },
 ];
 
@@ -47,7 +47,7 @@ export default function GstNumberRegistrationPage() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
 
-  // For the subtle parallax banner
+  // Parallax for desktop illustration
   const { scrollY } = useViewportScroll();
   const parallax = useTransform(scrollY, [0, 300], [0, 80]);
 
@@ -71,7 +71,7 @@ export default function GstNumberRegistrationPage() {
           <Link href="/">
             <img
               src="/Blue Minimalist Financial Consulting Agency Logo.png"
-              alt="C-Note Tax Logo"
+              alt="Logo"
               className="h-12 sm:h-16 md:h-20 lg:h-24 object-contain drop-shadow-lg"
             />
           </Link>
@@ -79,6 +79,7 @@ export default function GstNumberRegistrationPage() {
           <div className="hidden lg:flex items-center space-x-6 text-white">
             <Link href="/" className="hover:text-blue-300">Home</Link>
             <Link href="#about" className="hover:text-blue-300">About Us</Link>
+            {/* Updated to file-your-tax */}
             <Link href="/file-your-tax" className="hover:text-blue-300">File Your Tax</Link>
             <div
               className="relative"
@@ -87,7 +88,7 @@ export default function GstNumberRegistrationPage() {
             >
               <button className="hover:text-blue-300">Services ▾</button>
               {servicesOpen && (
-                <ul className="absolute top-full left-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg">
+                <ul className="absolute top-full left-0 mt-2 w-56 bg-white text-black rounded-lg shadow-lg">
                   <li>
                     <Link href="/income-tax-services" className="block px-4 py-2 hover:bg-gray-100">
                       Income Tax Services
@@ -105,19 +106,19 @@ export default function GstNumberRegistrationPage() {
                   </li>
                   <li>
                     <Link href="/gst-number-registration" className="block px-4 py-2 hover:bg-gray-100">
-                      GST Number Registration
+                      GST Registration
                     </Link>
                   </li>
                 </ul>
               )}
             </div>
-            <Link href="#contact" className="hover:text-blue-300">Contact Us</Link>
           </div>
 
           {/* Mobile hamburger */}
           <button
             className="lg:hidden text-white text-2xl"
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
           >
             ☰
           </button>
@@ -125,10 +126,11 @@ export default function GstNumberRegistrationPage() {
 
         {/* Mobile Menu */}
         {mobileOpen && (
-          <div className="lg:hidden absolute top-[64px] left-0 w-full bg-black bg-opacity-90 py-4 z-20 space-y-2">
-            <Link href="/" className="block px-6 py-2 text-white hover:bg-white hover:text-black">Home</Link>
-            <Link href="#about" className="block px-6 py-2 text-white hover:bg-white hover:text-black">About Us</Link>
-            <Link href="/file-your-tax" className="block px-6 py-2 text-white hover:bg-white hover:text-black">File Your Tax</Link>
+          <div className="lg:hidden absolute top-16 left-0 w-full bg-black bg-opacity-90 py-4 space-y-2 z-20">
+            <Link href="/" className="block px-6 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>Home</Link>
+            <Link href="#about" className="block px-6 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>About Us</Link>
+            {/* Updated to file-your-tax */}
+            <Link href="/file-your-tax" className="block px-6 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>File Your Tax</Link>
             <button
               className="w-full text-left px-6 py-2 text-white hover:bg-white hover:text-black"
               onClick={() => setServicesOpen(!servicesOpen)}
@@ -137,21 +139,21 @@ export default function GstNumberRegistrationPage() {
             </button>
             {servicesOpen && (
               <div className="pl-4">
-                <Link href="/income-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black">
+                <Link href="/income-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
                   Income Tax Services
                 </Link>
-                <Link href="/business-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black">
+                <Link href="/business-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
                   Business Tax Services
                 </Link>
-                <Link href="/gst-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black">
+                <Link href="/gst-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
                   GST Tax Services
                 </Link>
-                <Link href="/gst-number-registration" className="block px-4 py-2 text-white hover:bg-white hover:text-black">
-                  GST Number Registration
+                <Link href="/gst-number-registration" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
+                  GST Registration
                 </Link>
               </div>
             )}
-            <Link href="#contact" className="block px-6 py-2 text-white hover:bg-white hover:text-black">Contact Us</Link>
+            <Link href="#contact" className="block px-6 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>Contact Us</Link>
           </div>
         )}
 
@@ -171,7 +173,7 @@ export default function GstNumberRegistrationPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            Get your GST/HST number quickly and correctly, with expert guidance.
+            Obtain your GSTIN quickly and accurately for your Indian business.
           </motion.p>
           <motion.div
             className="flex flex-col sm:flex-row gap-4"
@@ -179,9 +181,10 @@ export default function GstNumberRegistrationPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
+            {/* Updated to file-your-tax */}
             <Link
               href="/file-your-tax"
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg text-center"
+              className="px-6 py-3 bg-blue-600 text-white rounded-lg text-center hover:opacity-90 transition"
             >
               File Your Tax
             </Link>
@@ -189,7 +192,7 @@ export default function GstNumberRegistrationPage() {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 bg-green-500 text-white rounded-lg text-center"
+              className="px-6 py-3 bg-green-500 text-white rounded-lg text-center hover:opacity-90 transition"
             >
               <FiPhone className="inline-block mr-2" /> WhatsApp Us
             </a>
@@ -209,14 +212,14 @@ export default function GstNumberRegistrationPage() {
         </motion.div>
       </section>
 
-      {/* MAIN */}
+      {/* MAIN CONTENT */}
       <main className="space-y-16">
         {/* ABOUT */}
         <section id="about" className="py-12 bg-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4">Why GST Number Registration Matters</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4">Why GST Registration Matters</h2>
             <p className="text-gray-700">
-              Having a valid GSTIN allows you to collect GST, claim input tax credits, and stay compliant with Canada’s tax regulations. Our team handles every step, so you can focus on your business.
+              A valid GSTIN lets you legally collect GST, claim input tax credits, and comply with India's GST laws. We manage the end‑to‑end registration process so you can focus on growing your business.
             </p>
           </div>
         </section>
@@ -242,7 +245,7 @@ export default function GstNumberRegistrationPage() {
         {/* WHY CHOOSE US */}
         <section className="py-12 bg-white">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8">What Makes Us Different</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8">What Sets Us Apart</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {whyChoose.map((item, i) => (
                 <motion.div
@@ -264,11 +267,11 @@ export default function GstNumberRegistrationPage() {
 
         {/* FINAL CTA */}
         <section className="py-12 bg-gradient-to-r from-blue-600 to-green-600 text-white text-center">
-          <h3 className="text-xl sm:text-2xl font-semibold mb-4">Ready for your GSTIN?</h3>
-          <p className="mb-6">Let’s get you fully registered—quickly and correctly.</p>
+          <h3 className="text-xl sm:text-2xl font-semibold mb-4">Ready to Get Your GSTIN?</h3>
+          <p className="mb-6">Let's register your business swiftly and accurately.</p>
           <Link
             href="/file-your-tax"
-            className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-full shadow"
+            className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-full shadow hover:opacity-90 transition"
           >
             Get Started
           </Link>
@@ -277,11 +280,11 @@ export default function GstNumberRegistrationPage() {
         {/* CONTACT */}
         <section id="contact" className="py-12 bg-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-2">
-            <p>Unit – 213, 1085 Bellamy Rd North, Scarborough, ON M1H 3C7</p>
+            <p>123, MG Road, Bengaluru, Karnataka 560001, India</p>
             <p>
-              <a href="tel:+14163033600" className="text-blue-600 hover:underline">+1 416 303 3600</a>
+              <a href="tel:+918012345678" className="text-blue-600 hover:underline">+91 80123 45678</a>
               {" • "}
-              <a href="mailto:contact@cnotetax.ca" className="text-blue-600 hover:underline">contact@cnotetax.ca</a>
+              <a href="mailto:support@cnotein.com" className="text-blue-600 hover:underline">support@cnotein.com</a>
             </p>
           </div>
         </section>

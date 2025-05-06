@@ -66,9 +66,7 @@ export default function Header() {
           <Link href="https://cnotetax.ca/login" className="hover:text-blue-300">
             Login
           </Link>
-          <Link href="#contact" className="hover:text-blue-300">
-            Contact Us
-          </Link>
+          
         </div>
 
         {/* Mobile hamburger */}

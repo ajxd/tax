@@ -6,7 +6,6 @@ import Link from "next/link";
 import Footer from "@/components/Footer";
 import { FiClock, FiDollarSign, FiShield, FiUsers, FiPhone } from "react-icons/fi";
 import { motion, useViewportScroll, useTransform } from "framer-motion";
-import CountUp from "react-countup";
 
 export default function IncomeTaxServicesPage() {
   const whatsappLink =
@@ -16,25 +15,41 @@ export default function IncomeTaxServicesPage() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
 
+  // Indian‑focused features
   const features = [
-    "Personal Tax Filing",
-    "Self‑Employment & Sole Proprietorship Returns",
-    "CRA Review Letters & Audit Support",
-    "Canada Child Benefits & Credits",
-    "Tax‑Saving Investment Advice",
-    "Year‑End Tax Planning",
+    "ITR‑1 & ITR‑2 E‑Filing",
+    "TDS Return Filing (Form 26Q)",
+    "Form 16 & 16A Verification",
+    "Section 80C & 80D Investments",
+    "Capital Gains Reporting",
+    "Revised Return (ITR‑V) Processing",
   ];
 
+  // Why choose us—Indian context
   const whyChoose = [
-    { icon: <FiClock size={32} />, title: "Fast Turnaround", desc: "Complete your filing quickly with our streamlined, user‑friendly process." },
-    { icon: <FiDollarSign size={32} />, title: "Max Refunds", desc: "Our experts ensure you claim every deduction and credit you deserve." },
-    { icon: <FiShield size={32} />, title: "Secure & Confidential", desc: "Your personal data is protected with top‑tier security." },
-    { icon: <FiUsers size={32} />, title: "Expert Support", desc: "Certified CAs guide you through every step, answering your queries." },
+    {
+      icon: <FiClock size={32} />,
+      title: "Quick Filing",
+      desc: "E‑file your ITR swiftly via the official Income Tax portal.",
+    },
+    {
+      icon: <FiDollarSign size={32} />,
+      title: "Max Deductions",
+      desc: "Optimize savings under Sections 80C, 80D, 24(b), and more.",
+    },
+    {
+      icon: <FiShield size={32} />,
+      title: "Secure & Confidential",
+      desc: "Your data is protected with bank‑grade encryption.",
+    },
+    {
+      icon: <FiUsers size={32} />,
+      title: "Expert Advisors",
+      desc: "Experienced Chartered Accountants guiding you every step.",
+    },
   ];
 
-  const [income, setIncome] = useState(50000);
-  const estimatedRefund = income * 0.15;
-
+  // Parallax for desktop illustration
   const { scrollY } = useViewportScroll();
   const parallax = useTransform(scrollY, [0, 300], [0, 100]);
 
@@ -61,10 +76,17 @@ export default function IncomeTaxServicesPage() {
               className="h-12 sm:h-16 md:h-20 lg:h-24 object-contain drop-shadow-lg"
             />
           </Link>
+
           <div className="hidden lg:flex items-center space-x-6 text-white">
-            <Link href="/" className="hover:text-blue-300">Home</Link>
-            <Link href="#about" className="hover:text-blue-300">About Us</Link>
-            <Link href="/file-your-tax" className="hover:text-blue-300">File Your Tax</Link>
+            <Link href="/" className="hover:text-blue-300">
+              Home
+            </Link>
+            <Link href="#about" className="hover:text-blue-300">
+              About Us
+            </Link>
+            <Link href="/file-your-tax" className="hover:text-blue-300">
+              File Your Tax
+            </Link>
             <div
               className="relative"
               onMouseEnter={() => setServicesOpen(true)}
@@ -73,24 +95,33 @@ export default function IncomeTaxServicesPage() {
               <button className="hover:text-blue-300">Services ▾</button>
               {servicesOpen && (
                 <ul className="absolute top-full left-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg">
-                  {["income-tax-services","business-tax-services","gst-tax-services","gst-number-registration"].map((path) => (
+                  {[
+                    "income-tax-services",
+                    "business-tax-services",
+                    "gst-tax-services",
+                    "gst-number-registration",
+                  ].map((path) => (
                     <li key={path}>
                       <Link
                         href={`/${path}`}
                         className="block px-4 py-2 hover:bg-gray-100"
                       >
-                        {path.replace(/-/g," ").replace(/\b\w/g,(l)=>l.toUpperCase())}
+                        {path
+                          .replace(/-/g, " ")
+                          .replace(/\b\w/g, (l) => l.toUpperCase())}
                       </Link>
                     </li>
                   ))}
                 </ul>
               )}
             </div>
-            <Link href="#contact" className="hover:text-blue-300">Contact Us</Link>
+            
           </div>
+
           <button
             className="lg:hidden text-white text-2xl"
-            onClick={() => setMobileOpen(!mobileOpen)}
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label="Toggle menu"
           >
             ☰
           </button>
@@ -98,7 +129,7 @@ export default function IncomeTaxServicesPage() {
 
         {/* Mobile Menu */}
         {mobileOpen && (
-          <div className="lg:hidden absolute top-16 left-0 w-full bg-black bg-opacity-90 py-4 z-20 space-y-2">
+          <div className="lg:hidden absolute top-16 left-0 w-full bg-black bg-opacity-90 py-4 space-y-2 z-20">
             {[
               { label: "Home", href: "/" },
               { label: "About Us", href: "#about" },
@@ -108,13 +139,14 @@ export default function IncomeTaxServicesPage() {
                 key={it.href}
                 href={it.href}
                 className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+                onClick={() => setMobileOpen(false)}
               >
                 {it.label}
               </Link>
             ))}
             <button
               className="w-full text-left px-6 py-2 text-white hover:bg-white hover:text-black"
-              onClick={() => setServicesOpen(!servicesOpen)}
+              onClick={() => setServicesOpen((o) => !o)}
             >
               Services ▾
             </button>
@@ -130,18 +162,14 @@ export default function IncomeTaxServicesPage() {
                     key={it.href}
                     href={it.href}
                     className="block px-8 py-2 text-white hover:bg-white hover:text-black"
+                    onClick={() => setMobileOpen(false)}
                   >
                     {it.label}
                   </Link>
                 ))}
               </div>
             )}
-            <Link
-              href="#contact"
-              className="block px-6 py-2 text-white hover:bg-white hover:text-black"
-            >
-              Contact Us
-            </Link>
+            
           </div>
         )}
 
@@ -161,7 +189,7 @@ export default function IncomeTaxServicesPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Simplify your tax filing—fast, accurate, and with maximized refunds.
+            Simplify your ITR filing—fast, accurate, and fully compliant.
           </motion.p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
@@ -194,8 +222,8 @@ export default function IncomeTaxServicesPage() {
         </motion.div>
       </section>
 
-      {/* FEATURES */}
       <main className="flex flex-col">
+        {/* FEATURES */}
         <section className="py-12 sm:py-16 bg-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
             {features.map((feat, i) => (
@@ -239,32 +267,6 @@ export default function IncomeTaxServicesPage() {
           </div>
         </section>
 
-        {/* REFUND ESTIMATOR */}
-        <section className="py-12 sm:py-16 bg-white">
-          <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center space-y-6">
-            <h2 className="text-2xl sm:text-3xl font-bold">Estimate Your Tax Refund</h2>
-            <p className="text-gray-600">
-              Drag the slider to enter your annual income and see your potential refund instantly.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              <span className="text-gray-700 font-medium">$0</span>
-              <input
-                type="range"
-                min={0}
-                max={200000}
-                step={1000}
-                value={income}
-                onChange={(e) => setIncome(Number(e.target.value))}
-                className="w-full"
-              />
-              <span className="text-gray-700 font-medium">$200k+</span>
-            </div>
-            <div className="text-3xl sm:text-4xl font-extrabold text-blue-600">
-              <CountUp end={estimatedRefund} duration={1.5} prefix="$" decimals={0} /> estimated refund
-            </div>
-          </div>
-        </section>
-
         {/* CTA WHATSAPP */}
         <a
           href={whatsappLink}
@@ -298,9 +300,11 @@ export default function IncomeTaxServicesPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h2 className="text-2xl sm:text-3xl font-extrabold">Talk to an Expert</h2>
+              <h2 className="text-2xl sm:text-3xl font-extrabold">
+                Talk to an Expert
+              </h2>
               <p className="text-gray-700">
-                Have questions? Our certified CAs are ready to guide you every step of the way.
+                Have questions? Our Chartered Accountants are here to guide you.
               </p>
               <a
                 href={whatsappLink}

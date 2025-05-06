@@ -1,3 +1,4 @@
+// app/business-tax-services/page.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -5,7 +6,6 @@ import Link from "next/link";
 import Footer from "@/components/Footer";
 import { FiClock, FiDollarSign, FiShield, FiUsers, FiPhone } from "react-icons/fi";
 import { motion, useViewportScroll, useTransform } from "framer-motion";
-import CountUp from "react-countup";
 
 export default function BusinessTaxServicesPage() {
   // WhatsApp deep link
@@ -17,43 +17,39 @@ export default function BusinessTaxServicesPage() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
 
-  // Features list
+  // Features list (Indian context)
   const features = [
-    "Corporate Tax Returns",
-    "Partnership & Sole Proprietorship Filings",
-    "GST/HST Reporting & Compliance",
-    "CRA Audit Support",
-    "Year‑End Tax Planning",
+    "Corporate Tax Filing (ITR‑6)",
+    "Partnership & Proprietorship Returns (ITR‑5/ITR‑4)",
+    "GST Return Filing (GSTR‑1 & GSTR‑3B)",
+    "GST Audit Support (GSTR‑9)",
+    "Tax Planning under MAT (Section 115JB)",
     "Tax Advisory & Consultations",
   ];
 
-  // Why Choose Us items
+  // Why Choose Us (Indian context)
   const whyChoose = [
     {
       icon: <FiClock size={32} />,
       title: "Timely Filings",
-      desc: "We ensure all your returns are filed accurately and on time, avoiding penalties.",
+      desc: "We file all your returns before due dates, avoiding penalties.",
     },
     {
       icon: <FiDollarSign size={32} />,
-      title: "Maximized Savings",
-      desc: "Our experts identify every deduction and credit to minimize your liability.",
+      title: "Max Deductions",
+      desc: "Optimize savings under Indian Income‑tax & GST laws.",
     },
     {
       icon: <FiShield size={32} />,
       title: "Regulatory Compliance",
-      desc: "Stay compliant with evolving corporate and GST/HST regulations.",
+      desc: "Stay compliant with evolving corporate tax & GST regulations.",
     },
     {
       icon: <FiUsers size={32} />,
-      title: "Dedicated Support",
-      desc: "Personalized assistance from specialists who understand your business.",
+      title: "Dedicated CA Support",
+      desc: "Expert Chartered Accountants guide you end‑to‑end.",
     },
   ];
-
-  // Refund Estimator state
-  const [income, setIncome] = useState(100000);
-  const estimatedRefund = income * 0.1; // 10% assumption
 
   // Parallax for banner image
   const { scrollY } = useViewportScroll();
@@ -61,7 +57,7 @@ export default function BusinessTaxServicesPage() {
 
   return (
     <>
-      {/* HERO with NAV overlaid */}
+      {/* HERO */}
       <section id="hero" className="relative h-screen overflow-hidden">
         <video
           className="absolute inset-0 w-full h-full object-cover"
@@ -73,7 +69,7 @@ export default function BusinessTaxServicesPage() {
         />
         <div className="absolute inset-0 bg-black/60" />
 
-        {/* Nav bar overlay */}
+        {/* Nav */}
         <nav className="absolute top-0 left-0 w-full z-20 px-6 md:px-16 py-6 flex justify-between items-center">
           <Link href="/">
             <img
@@ -85,7 +81,7 @@ export default function BusinessTaxServicesPage() {
           <div className="hidden lg:flex items-center space-x-8 text-white">
             <Link href="/" className="hover:text-blue-300">Home</Link>
             <Link href="#about" className="hover:text-blue-300">About Us</Link>
-            <Link href="/file-your-tax" className="hover:text-blue-300">File Your Tax</Link>
+            <Link href="/file-your-tax" className="hover:text-blue-300">File Your ITR</Link>
             <div
               className="relative"
               onMouseEnter={() => setServicesOpen(true)}
@@ -93,7 +89,7 @@ export default function BusinessTaxServicesPage() {
             >
               <button className="hover:text-blue-300">Services ▾</button>
               {servicesOpen && (
-                <ul className="absolute top-full left-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg">
+                <ul className="absolute top-full left-0 mt-2 w-56 bg-white text-black rounded-lg shadow-lg">
                   <li>
                     <Link href="/income-tax-services" className="block px-4 py-2 hover:bg-gray-100">
                       Income Tax Services
@@ -111,55 +107,62 @@ export default function BusinessTaxServicesPage() {
                   </li>
                   <li>
                     <Link href="/gst-number-registration" className="block px-4 py-2 hover:bg-gray-100">
-                      GST Number Registration
+                      GST Registration
                     </Link>
                   </li>
                 </ul>
               )}
             </div>
-            <Link href="#contact" className="hover:text-blue-300">Contact Us</Link>
+           
           </div>
           <button
             className="lg:hidden text-white text-2xl"
-            onClick={() => setMobileOpen(!mobileOpen)}
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label="Toggle menu"
           >
             ☰
           </button>
         </nav>
 
-        {/* Mobile dropdown */}
+        {/* Mobile Menu */}
         {mobileOpen && (
-          <div className="lg:hidden absolute top-[72px] left-0 w-full bg-black bg-opacity-90 py-4 z-20">
-            <Link href="/" className="block px-6 py-2 text-white hover:bg-white hover:text-black">Home</Link>
-            <Link href="#about" className="block px-6 py-2 text-white hover:bg-white hover:text-black">About Us</Link>
-            <Link href="/file-your-tax" className="block px-6 py-2 text-white hover:bg-white hover:text-black">File Your Tax</Link>
+          <div className="lg:hidden absolute top-[72px] left-0 w-full bg-black bg-opacity-90 py-4 space-y-2 z-20">
+            <Link href="/" className="block px-6 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
+              Home
+            </Link>
+            <Link href="#about" className="block px-6 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
+              About Us
+            </Link>
+            <Link href="/file-your-tax" className="block px-6 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
+              File Your ITR
+            </Link>
             <button
               className="w-full text-left px-6 py-2 text-white hover:bg-white hover:text-black"
-              onClick={() => setServicesOpen(!servicesOpen)}
+              onClick={() => setServicesOpen((o) => !o)}
             >
               Services ▾
             </button>
             {servicesOpen && (
-              <div className="bg-black bg-opacity-90">
-                <Link href="/income-tax-services" className="block px-8 py-2 text-white hover:bg-white hover:text-black">
+              <div className="pl-4">
+                <Link href="/income-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
                   Income Tax Services
                 </Link>
-                <Link href="/business-tax-services" className="block px-8 py-2 text-white hover:bg-white hover:text-black">
+                <Link href="/business-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
                   Business Tax Services
                 </Link>
-                <Link href="/gst-tax-services" className="block px-8 py-2 text-white hover:bg-white hover:text-black">
+                <Link href="/gst-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
                   GST Tax Services
                 </Link>
-                <Link href="/gst-number-registration" className="block px-8 py-2 text-white hover:bg-white hover:text-black">
-                  GST Number Registration
+                <Link href="/gst-number-registration" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
+                  GST Registration
                 </Link>
               </div>
             )}
-            <Link href="#contact" className="block px-6 py-2 text-white hover:bg-white hover:text-black">Contact Us</Link>
+            
           </div>
         )}
 
-        {/* Hero content */}
+        {/* Hero Content */}
         <div className="relative z-10 max-w-6xl mx-auto flex items-center h-full px-6">
           <motion.div
             className="w-full md:w-1/2 text-white space-y-6"
@@ -171,13 +174,13 @@ export default function BusinessTaxServicesPage() {
               Business Tax Services
             </h1>
             <p className="text-lg md:text-xl">
-              Comprehensive solutions for corporations, partnerships, and self‑employed.
+              Comprehensive corporate & partnership tax solutions for Indian businesses.
             </p>
             <Link
               href="/file-your-tax"
               className="inline-block px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow hover:opacity-90 transition"
             >
-              File Your Tax
+              File Your ITR
             </Link>
           </motion.div>
         </div>
@@ -241,32 +244,6 @@ export default function BusinessTaxServicesPage() {
           </div>
         </section>
 
-        {/* ESTIMATOR */}
-        <section className="py-16 bg-white">
-          <div className="max-w-2xl mx-auto px-6 text-center space-y-6">
-            <h2 className="text-3xl font-bold">Estimate Your Tax Savings</h2>
-            <p className="text-gray-700">
-              Adjust your revenue slider to see a rough estimate of potential savings.
-            </p>
-            <div className="flex items-center space-x-4">
-              <span className="text-gray-700 font-medium">$0</span>
-              <input
-                type="range"
-                min={0}
-                max={500000}
-                step={5000}
-                value={income}
-                onChange={(e) => setIncome(Number(e.target.value))}
-                className="w-full"
-              />
-              <span className="text-gray-700 font-medium">$500k+</span>
-            </div>
-            <div className="text-4xl font-extrabold text-blue-600">
-              <CountUp end={estimatedRefund} duration={1.5} prefix="$" decimals={0} /> potential savings
-            </div>
-          </div>
-        </section>
-
         {/* STICKY WHATSAPP CTA */}
         <a
           href={whatsappLink}
@@ -302,7 +279,7 @@ export default function BusinessTaxServicesPage() {
             >
               <h2 className="text-3xl font-extrabold">Talk to an Expert</h2>
               <p className="text-gray-700">
-                Have questions? Our dedicated business tax specialists are ready to help.
+                Our CA specialists are ready to answer any business‑tax query.
               </p>
               <a
                 href={whatsappLink}

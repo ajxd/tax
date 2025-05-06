@@ -3,54 +3,68 @@
 
 import React from "react";
 import CountUp from "react-countup";
-import LeavesFalling from "./LeavesFalling";
+import { motion, Variants } from "framer-motion";
 
 const metrics = [
   { label: "Years", end: 9, suffix: "+" },
   { label: "Clients", end: 15, suffix: "K+" },
   { label: "Files", end: 20, suffix: "K+" },
-  { label: "Rating", end: 4.9, decimals: 1, suffix: " Reviews" },
+  { label: "Rating", end: 4.9, suffix: " Reviews", decimals: 1 },
 ];
+
+const pillVariants: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, ease: "easeOut", duration: 0.5 },
+  }),
+};
 
 export default function ClientsSection() {
   return (
     <section
       id="clients"
-      className="relative bg-gray-50 overflow-hidden py-16 px-4 sm:px-6 lg:px-8"
+      className="relative py-12 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden"
     >
-      {/* Falling leaves */}
-      <div className="absolute inset-0 pointer-events-none z-10">
-        <LeavesFalling />
-      </div>
-      {/* Dot‑pattern overlay */}
+      {/* Subtle diagonal‑stripe background */}
       <div
-        className="absolute inset-0 z-20"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage:
-            "radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
+          background:
+            "repeating-linear-gradient(45deg, rgba(59,130,246,0.1) 0px, rgba(59,130,246,0.1) 1px, transparent 1px, transparent 20px)",
         }}
       />
-      {/* Content */}
-      <div className="relative z-30 max-w-4xl mx-auto">
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-center mb-6 sm:mb-8">
-          Our Clients
+
+      <div className="relative max-w-4xl mx-auto">
+        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 text-center mb-8">
+          Our Impact Metrics
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-          {metrics.map(({ label, end, suffix, decimals = 0 }) => (
-            <div key={label} className="text-center">
-              <CountUp
-                start={0}
-                end={end}
-                suffix={suffix}
-                decimals={decimals}
-                duration={2}
-                className="text-3xl sm:text-4xl font-extrabold text-gray-800"
-              />
-              <p className="mt-1 sm:mt-2 text-lg sm:text-xl text-gray-600">
-                {label}
+
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+          {metrics.map((m, i) => (
+            <motion.div
+              key={m.label}
+              custom={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={pillVariants}
+              className="flex flex-col items-center"
+            >
+              <div className="px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full text-white font-semibold text-xl sm:text-2xl">
+                <CountUp
+                  start={0}
+                  end={m.end}
+                  suffix={m.suffix}
+                  decimals={m.decimals || 0}
+                  duration={2}
+                />
+              </div>
+              <p className="mt-2 text-sm sm:text-base text-gray-600">
+                {m.label}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

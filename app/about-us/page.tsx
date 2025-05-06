@@ -4,6 +4,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { motion, useViewportScroll, useTransform } from "framer-motion";
+import { FiUsers, FiGlobe, FiShield, FiHeart } from "react-icons/fi";
 import Footer from "@/components/Footer";
 
 const differenceItems = [
@@ -11,31 +12,31 @@ const differenceItems = [
     title: "Excellence in Service",
     image: "Excellence-in-Service",
     text:
-      "Our skilled tax professionals stay up‑to‑date with evolving Canadian tax laws to provide accurate advice and seamless solutions.",
+      "Our skilled tax professionals stay up‑to‑date with evolving Indian Income Tax and GST regulations to provide accurate advice and seamless solutions.",
   },
   {
     title: "Client‑First Approach",
     image: "1",
     text:
-      "We prioritize your needs by delivering personalized services that maximize savings, minimize liabilities, and ensure compliance.",
+      "We prioritise your needs by delivering personalised services that maximise savings, minimise liabilities, and ensure full compliance.",
   },
   {
     title: "Year‑Round Support",
     image: "2",
     text:
-      "Tax needs don’t stop after the season ends. We offer expert assistance throughout the year, ensuring you have reliable support whenever you need it.",
+      "Tax isn’t just seasonal. We offer expert assistance throughout the year, so you have reliable support whenever you need it.",
   },
   {
     title: "Your Privacy Matters",
     image: "3",
     text:
-      "We handle your personal data with the utmost care and follow rigorous confidentiality measures.",
+      "We treat your personal data with the utmost care, following strict confidentiality and security protocols.",
   },
   {
     title: "Adapting to Change",
     image: "4",
     text:
-      "The tax landscape evolves, and so do we. Continuous learning ensures we’re always ready to meet your needs with compliant solutions.",
+      "The Indian tax landscape evolves—and so do we. Continuous learning ensures we’re always ready with compliant, up‑to‑date solutions.",
   },
   {
     title: "Giving Back",
@@ -49,7 +50,6 @@ export default function AboutUsPage() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
 
-  // Parallax for clock image
   const { scrollY } = useViewportScroll();
   const clockY = useTransform(scrollY, [0, 300], [0, 80]);
 
@@ -60,42 +60,50 @@ export default function AboutUsPage() {
         <video
           className="absolute inset-0 w-full h-full object-cover"
           src="/banner-bg.mp4"
-          autoPlay muted loop playsInline
+          autoPlay
+          muted
+          loop
+          playsInline
         />
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/60 to-black/30" />
 
-        {/* NAV */}
-        <nav className="absolute top-0 left-0 w-full px-4 sm:px-6 lg:px-16 py-4 flex justify-between items-center z-20 text-white">
+        {/* NAVBAR */}
+        <nav className="absolute top-0 left-0 w-full px-4 sm:px-6 lg:px-16 py-4 flex justify-between items-center z-30 text-white">
           <Link href="/">
             <img
               src="/Blue Minimalist Financial Consulting Agency Logo.png"
-              alt="C-Note Tax"
+              alt="Parasuraman Auditing Firm"
               className="h-12 sm:h-16 md:h-20 object-contain"
             />
           </Link>
-          {/* desktop */}
-          <div className="hidden lg:flex items-center space-x-8">
-            <Link href="/" className="hover:text-blue-300">Home</Link>
-            <Link href="#about" className="hover:text-blue-300">About Us</Link>
-            <Link href="/file-your-tax" className="hover:text-blue-300">File Your Tax</Link>
+          <div className="hidden lg:flex items-center space-x-8 font-medium">
+            <Link href="/" className="hover:text-green-400">Home</Link>
+            <Link href="#about" className="hover:text-green-400">About Us</Link>
+            <Link href="/file-your-tax" className="hover:text-green-400">File Your Tax</Link>
             <div
               className="relative"
               onMouseEnter={() => setServicesOpen(true)}
               onMouseLeave={() => setServicesOpen(false)}
             >
-              <button className="hover:text-blue-300">Services ▾</button>
+              <button className="hover:text-green-400">Services ▾</button>
               {servicesOpen && (
-                <ul className="absolute top-full left-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg">
-                  <li><Link href="/income-tax-services" className="block px-4 py-2 hover:bg-gray-100">Income Tax Services</Link></li>
-                  <li><Link href="/business-tax-services" className="block px-4 py-2 hover:bg-gray-100">Business Tax Services</Link></li>
-                  <li><Link href="/gst-tax-services" className="block px-4 py-2 hover:bg-gray-100">GST Tax Services</Link></li>
-                  <li><Link href="/gst-number-registration" className="block px-4 py-2 hover:bg-gray-100">GST Number Registration</Link></li>
+                <ul className="absolute top-full left-0 mt-1 w-48 bg-white text-gray-800 rounded-lg shadow-lg">
+                  {[
+                    ["Income Tax Services", "/income-tax-services"],
+                    ["Business Tax Services", "/business-tax-services"],
+                    ["GST Tax Services", "/gst-tax-services"],
+                    ["GST Registration", "/gst-number-registration"],
+                  ].map(([label, href]) => (
+                    <li key={label}>
+                      <Link href={href} className="block px-4 py-2 hover:bg-gray-100">
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               )}
             </div>
-            <Link href="#contact" className="hover:text-blue-300">Contact Us</Link>
           </div>
-          {/* mobile hamburger */}
           <button
             className="lg:hidden text-2xl"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -104,13 +112,19 @@ export default function AboutUsPage() {
           </button>
         </nav>
 
-        {/* mobile menu */}
+        {/* MOBILE MENU */}
         {mobileOpen && (
           <div className="lg:hidden absolute top-[64px] left-0 w-full bg-black bg-opacity-90 py-4 space-y-2 z-20">
-            {["Home", "About Us", "File Your Tax"].map((t, i) => (
+            {["Home", "About Us", "File Your Tax"].map((t) => (
               <Link
-                key={i}
-                href={t === "Home" ? "/" : t === "About Us" ? "#about" : "/file-your-tax"}
+                key={t}
+                href={
+                  t === "Home"
+                    ? "/"
+                    : t === "About Us"
+                    ? "#about"
+                    : "/file-your-tax"
+                }
                 className="block px-6 py-2 text-white hover:bg-white hover:text-black"
               >
                 {t}
@@ -124,150 +138,190 @@ export default function AboutUsPage() {
             </button>
             {servicesOpen && (
               <div className="pl-4">
-                <Link href="/income-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black">Income Tax Services</Link>
-                <Link href="/business-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black">Business Tax Services</Link>
-                <Link href="/gst-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black">GST Tax Services</Link>
-                <Link href="/gst-number-registration" className="block px-4 py-2 text-white hover:bg-white hover:text-black">GST Number Registration</Link>
+                {differenceItems.slice(0,4).map((item) => (
+                  <Link
+                    key={item.title}
+                    href={`/${item.title.toLowerCase().split(" ")[0]}-services`}
+                    className="block px-4 py-2 text-white hover:bg-white hover:text-black"
+                  >
+                    {item.title}
+                  </Link>
+                ))}
               </div>
             )}
-            <Link href="#contact" className="block px-6 py-2 text-white hover:bg-white hover:text-black">Contact Us</Link>
           </div>
         )}
 
-        {/* Hero Text */}
-        <div className="relative z-10 flex flex-col justify-center h-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-16">
+        {/* HERO TEXT */}
+        <div className="relative z-20 flex flex-col justify-center h-full max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-16">
           <motion.h1
-            className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-white mb-4"
-            initial={{ opacity: 0, y: 10 }}
+            className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-4"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
             About Us
           </motion.h1>
           <motion.p
-            className="text-lg sm:text-xl text-gray-200"
-            initial={{ opacity: 0, y: 10 }}
+            className="text-lg sm:text-xl text-gray-200 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.3 }}
           >
-            Our story, vision & mission behind C‑Note Tax Solutions.
+            Discover the story, vision & mission behind Parasuraman Auditing Firm.
           </motion.p>
         </div>
 
-        {/* Parallax Clock */}
+        {/* PARALLAX CLOCK */}
         <motion.div
           style={{ y: clockY }}
-          className="hidden md:block absolute top-0 right-0 w-1/3 h-full"
+          className="hidden md:block absolute top-0 right-0 w-1/3 h-full opacity-40"
         >
           <img
             src="/clocks.png"
-            alt="Clock Illustration"
-            className="w-full h-full object-cover rounded-l-lg shadow-lg"
+            alt=""
+            className="w-full h-full object-cover"
           />
         </motion.div>
       </section>
 
-      <main className="space-y-16">
-        {/* About Us Text */}
+      {/* MAIN */}
+      <main className="space-y-20 py-16 bg-gray-50">
+        {/* ABOUT STATEMENT */}
         <section id="about" className="py-12 bg-white">
           <div className="max-w-3xl mx-auto px-4 text-center">
-            <p className="text-gray-700">
-              We proudly serve Canadians nationwide, making tax filing simple, no matter where you are.
-            </p>
+            <motion.p
+              className="text-gray-700 text-lg"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              We proudly serve clients across India, making tax filing simple
+              and stress‑free, no matter where you are.
+            </motion.p>
           </div>
         </section>
 
-        {/* Vision & Mission */}
-        <section className="py-12 bg-gray-50">
-          <div className="max-w-4xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* VISION & MISSION */}
+        <section className="py-12 bg-gradient-to-br from-green-50 to-white">
+          <div className="max-w-4xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12">
             <motion.div
-              className="space-y-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              className="p-6 bg-white rounded-xl shadow-lg flex flex-col items-center text-center"
+              initial={{ scale: 0.9, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.1 }}
             >
-              <h3 className="text-2xl font-semibold">Vision</h3>
+              <FiUsers className="text-green-500 text-4xl mb-4" />
+              <h3 className="text-2xl font-semibold mb-2">Vision</h3>
               <p className="text-gray-700">
-                Become Canada’s trusted tax firm, making tax filing simple and stress-free.
+                To be India’s most trusted auditing and tax advisory firm,
+                empowering individuals and businesses with clarity and peace
+                of mind.
               </p>
             </motion.div>
             <motion.div
-              className="space-y-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              className="p-6 bg-white rounded-xl shadow-lg flex flex-col items-center text-center"
+              initial={{ scale: 0.9, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              <h3 className="text-2xl font-semibold">Mission</h3>
+              <FiGlobe className="text-green-500 text-4xl mb-4" />
+              <h3 className="text-2xl font-semibold mb-2">Mission</h3>
               <p className="text-gray-700">
-                Provide reliable, hassle-free tax solutions with expert guidance for every Canadian.
+                Deliver reliable, hassle‑free auditing and tax solutions with
+                expert guidance for every Indian client.
               </p>
             </motion.div>
           </div>
         </section>
 
-        {/* Our Company */}
+        {/* OUR JOURNEY */}
         <section className="py-12 bg-white">
           <div className="max-w-4xl mx-auto px-4 space-y-6">
-            <h3 className="text-2xl font-semibold">Our Company</h3>
-            <p className="text-gray-700">
-              For over nine years, C‑Note Tax Solutions Inc. has been more than just a tax firm—we’ve been a trusted partner to Canadians across the country.
-            </p>
-            <p className="text-gray-700">
-              It’s about building trust, fostering relationships, and supporting you through every stage of your tax journey.
-            </p>
+            <h3 className="text-2xl font-semibold text-center">Our Journey</h3>
+            <motion.div
+              className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+              initial="hidden"
+              whileInView="visible"
+              variants={{
+                hidden: {},
+                visible: { transition: { staggerChildren: 0.1 } },
+              }}
+            >
+              {[
+                "For over nine years, Parasuraman Auditing Firm has been more than just a number‑cruncher—we’ve been a trusted partner to businesses, professionals, and individuals across India.",
+                "It’s about building trust, fostering lasting relationships, and guiding you through every step of your financial journey.",
+              ].map((txt, idx) => (
+                <motion.p
+                  key={idx}
+                  className="text-gray-700"
+                  variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
+                >
+                  {txt}
+                </motion.p>
+              ))}
+            </motion.div>
           </div>
         </section>
 
-        {/* What Makes Us Different */}
+        {/* WHAT MAKES US DIFFERENT */}
         <section className="py-12 bg-gray-50">
           <div className="max-w-5xl mx-auto px-4">
-            <h3 className="text-2xl font-semibold text-center mb-8">What Makes Us Different</h3>
+            <h3 className="text-2xl font-semibold text-center mb-8">
+              What Makes Us Different
+            </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {differenceItems.map(({ title, image, text }) => (
-                <div key={title} className="relative group overflow-hidden rounded-lg">
+                <motion.div
+                  key={title}
+                  className="bg-white rounded-xl overflow-hidden shadow hover:shadow-2xl transition"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4 }}
+                >
                   <img
                     src={`/${image}.jpg`}
                     alt={title}
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-40 object-cover"
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-center items-center p-4 text-center">
-                    <h4 className="text-white text-lg font-semibold mb-2">{title}</h4>
-                    <p className="text-white text-sm">{text}</p>
+                  <div className="p-6">
+                    <h4 className="text-lg font-semibold mb-2">{title}</h4>
+                    <p className="text-gray-600 text-sm">{text}</p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Clients */}
+        {/* OUR CLIENTS */}
         <section className="py-12 bg-white">
           <div className="max-w-4xl mx-auto px-4 text-center space-y-4">
             <h3 className="text-2xl font-semibold">Our Clients</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                "Uber / Lyft / Truck Drivers",
-                "Employed Individuals",
-                "Small Business Corporations",
-                "Other Sales Professionals",
-              ].map((label, i) => (
-                <div key={i} className="p-4 bg-gray-100 rounded-lg">
-                  {label}
-                </div>
+              {["Ride‑share Drivers","Salaried Professionals","Small Business Owners","Freelancers & Consultants"].map((label) => (
+                <div className="p-4 bg-green-50 rounded-lg">{label}</div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Contact & Footer */}
-        <section id="contact" className="py-12 bg-white">
+        {/* CONTACT */}
+        <section id="contact" className="py-12 bg-gradient-to-r from-green-50 to-white">
           <div className="max-w-3xl mx-auto px-4 text-center space-y-2">
-            <p>Unit 213, 1085 Bellamy Rd North, Scarborough, ON M1H 3C7</p>
-            <p>
-              <a href="tel:+14163033600" className="text-blue-600 hover:underline">+1 416 303 3600</a>{" • "}
-              <a href="mailto:contact@cnotetax.ca" className="text-blue-600 hover:underline">contact@cnotetax.ca</a>
+            <p>Flat 213,</p>
+            <p>1‑1‑85/A, MG Road, Hyderabad – 500001, Telangana, India</p>
+            <p className="space-x-2">
+              <a href="tel:+919985554909" className="text-green-600 hover:underline">
+                +91 99855 54909
+              </a>
+              <span>•</span>
+              <a
+                href="mailto:itreturnhyd@gmail.com"
+                className="text-green-600 hover:underline"
+              >
+                itreturnhyd@gmail.com
+              </a>
             </p>
           </div>
         </section>

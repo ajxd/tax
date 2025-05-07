@@ -108,7 +108,7 @@ export default function GstNumberRegistrationPage() {
                 </ul>
               )}
             </div>
-            <Link href="#contact" className="hover:text-blue-300">Contact Us</Link>
+            
           </div>
           <button
             className="lg:hidden text-white text-2xl"
@@ -173,13 +173,7 @@ export default function GstNumberRegistrationPage() {
                 </Link>
               </div>
             )}
-            <Link
-              href="#contact"
-              className="block px-6 py-2 text-white hover:bg-white hover:text-black"
-              onClick={() => setMobileOpen(false)}
-            >
-              Contact Us
-            </Link>
+            
           </div>
         )}
 

@@ -73,7 +73,7 @@ export default function ServicesCarousel() {
       onMouseLeave={() => (hoverRef.current = false)}
     >
       <LazyMotion features={domAnimation}>
-        {/* Slides */}
+        {/* Slides track */}
         <motion.div
           className="flex"
           variants={trackVariants}
@@ -107,7 +107,7 @@ export default function ServicesCarousel() {
         </motion.div>
       </LazyMotion>
 
-      {/* Prev / Next */}
+      {/* Prev / Next controls */}
       <button
         onClick={prev}
         aria-label="Previous slide"
@@ -124,14 +124,13 @@ export default function ServicesCarousel() {
       </button>
 
       {/* Pagination dots */}
-      <div className="absolute bottom-2 w-full flex justify-center space-x-1">
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {services.map((_, i) => (
           <button
             key={i}
             onClick={() => setIndex(i)}
-            aria-label={`Go to slide ${i + 1}`}
-            className={`h-2 w-6 rounded-full transition-all duration-300 ${
-              i === index ? "bg-white" : "bg-white/50"
+            className={`w-3 h-3 rounded-full transition-colors ${
+              i === index ? "bg-blue-600" : "bg-gray-300"
             }`}
           />
         ))}

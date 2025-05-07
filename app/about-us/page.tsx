@@ -4,7 +4,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { motion, useViewportScroll, useTransform } from "framer-motion";
-import { FiUsers, FiGlobe, FiShield, FiHeart } from "react-icons/fi";
+import { FiUsers, FiGlobe, FiShield, FiPhone } from "react-icons/fi";
 import Footer from "@/components/Footer";
 
 const differenceItems = [
@@ -49,14 +49,13 @@ const differenceItems = [
 export default function AboutUsPage() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-
   const { scrollY } = useViewportScroll();
   const clockY = useTransform(scrollY, [0, 300], [0, 80]);
 
   return (
     <>
       {/* HERO */}
-      <section className="relative h-screen overflow-hidden">
+      <section className="relative h-screen overflow-x-hidden">
         <video
           className="absolute inset-0 w-full h-full object-cover"
           src="/banner-bg.mp4"
@@ -65,21 +64,29 @@ export default function AboutUsPage() {
           loop
           playsInline
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/60 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/60 to-black/30 pointer-events-none" />
 
         {/* NAVBAR */}
         <nav className="absolute top-0 left-0 w-full px-4 sm:px-6 lg:px-16 py-4 flex justify-between items-center z-30 text-white">
           <Link href="/">
             <img
               src="/Blue Minimalist Financial Consulting Agency Logo.png"
-              alt="Parasuraman Auditing Firm"
+              alt="Logo"
               className="h-12 sm:h-16 md:h-20 object-contain"
             />
           </Link>
+
+          {/* Desktop Links */}
           <div className="hidden lg:flex items-center space-x-8 font-medium">
-            <Link href="/" className="hover:text-green-400">Home</Link>
-            <Link href="#about" className="hover:text-green-400">About Us</Link>
-            <Link href="/file-your-tax" className="hover:text-green-400">File Your Tax</Link>
+            <Link href="/" className="hover:text-green-400">
+              Home
+            </Link>
+            <Link href="#about" className="hover:text-green-400">
+              About Us
+            </Link>
+            <Link href="/file-your-tax" className="hover:text-green-400">
+              File Your Tax
+            </Link>
             <div
               className="relative"
               onMouseEnter={() => setServicesOpen(true)}
@@ -94,8 +101,11 @@ export default function AboutUsPage() {
                     ["GST Tax Services", "/gst-tax-services"],
                     ["GST Registration", "/gst-number-registration"],
                   ].map(([label, href]) => (
-                    <li key={label}>
-                      <Link href={href} className="block px-4 py-2 hover:bg-gray-100">
+                    <li key={href}>
+                      <Link
+                        href={href}
+                        className="block px-4 py-2 hover:bg-gray-100"
+                      >
                         {label}
                       </Link>
                     </li>
@@ -104,32 +114,37 @@ export default function AboutUsPage() {
               )}
             </div>
           </div>
+
+          {/* Mobile Menu Button */}
           <button
-            className="lg:hidden text-2xl"
+            className="lg:hidden text-white text-2xl"
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
           >
             ☰
           </button>
         </nav>
 
-        {/* MOBILE MENU */}
+        {/* MOBILE MENU (now above hero text) */}
         {mobileOpen && (
-          <div className="lg:hidden absolute top-[64px] left-0 w-full bg-black bg-opacity-90 py-4 space-y-2 z-20">
-            {["Home", "About Us", "File Your Tax"].map((t) => (
+          <div className="lg:hidden absolute top-[64px] left-0 w-full bg-black bg-opacity-90 py-4 space-y-2 z-40">
+            {/* Primary Links */}
+            {[
+              { label: "Home", href: "/" },
+              { label: "About Us", href: "#about" },
+              { label: "File Your Tax", href: "/file-your-tax" },
+            ].map(({ label, href }) => (
               <Link
-                key={t}
-                href={
-                  t === "Home"
-                    ? "/"
-                    : t === "About Us"
-                    ? "#about"
-                    : "/file-your-tax"
-                }
+                key={href}
+                href={href}
                 className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+                onClick={() => setMobileOpen(false)}
               >
-                {t}
+                {label}
               </Link>
             ))}
+
+            {/* Services Toggle */}
             <button
               className="w-full text-left px-6 py-2 text-white hover:bg-white hover:text-black"
               onClick={() => setServicesOpen(!servicesOpen)}
@@ -137,18 +152,33 @@ export default function AboutUsPage() {
               Services ▾
             </button>
             {servicesOpen && (
-              <div className="pl-4">
-                {differenceItems.slice(0,4).map((item) => (
+              <div className="pl-6">
+                {[
+                  { label: "Income Tax Services", href: "/income-tax-services" },
+                  { label: "Business Tax Services", href: "/business-tax-services" },
+                  { label: "GST Tax Services", href: "/gst-tax-services" },
+                  { label: "GST Registration", href: "/gst-number-registration" },
+                ].map(({ label, href }) => (
                   <Link
-                    key={item.title}
-                    href={`/${item.title.toLowerCase().split(" ")[0]}-services`}
-                    className="block px-4 py-2 text-white hover:bg-white hover:text-black"
+                    key={href}
+                    href={href}
+                    className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+                    onClick={() => setMobileOpen(false)}
                   >
-                    {item.title}
+                    {label}
                   </Link>
                 ))}
               </div>
             )}
+
+            {/* Contact */}
+            <Link
+              href="#contact"
+              className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+              onClick={() => setMobileOpen(false)}
+            >
+              Contact Us
+            </Link>
           </div>
         )}
 
@@ -177,15 +207,11 @@ export default function AboutUsPage() {
           style={{ y: clockY }}
           className="hidden md:block absolute top-0 right-0 w-1/3 h-full opacity-40"
         >
-          <img
-            src="/clocks.png"
-            alt=""
-            className="w-full h-full object-cover"
-          />
+          <img src="/clocks.png" alt="" className="w-full h-full object-cover" />
         </motion.div>
       </section>
 
-      {/* MAIN */}
+      {/* MAIN CONTENT */}
       <main className="space-y-20 py-16 bg-gray-50">
         {/* ABOUT STATEMENT */}
         <section id="about" className="py-12 bg-white">
@@ -255,7 +281,10 @@ export default function AboutUsPage() {
                 <motion.p
                   key={idx}
                   className="text-gray-700"
-                  variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
+                  variants={{
+                    hidden: { opacity: 0, y: 10 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
                 >
                   {txt}
                 </motion.p>
@@ -299,8 +328,15 @@ export default function AboutUsPage() {
           <div className="max-w-4xl mx-auto px-4 text-center space-y-4">
             <h3 className="text-2xl font-semibold">Our Clients</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {["Ride‑share Drivers","Salaried Professionals","Small Business Owners","Freelancers & Consultants"].map((label) => (
-                <div className="p-4 bg-green-50 rounded-lg">{label}</div>
+              {[
+                "Ride‑share Drivers",
+                "Salaried Professionals",
+                "Small Business Owners",
+                "Freelancers & Consultants",
+              ].map((label) => (
+                <div key={label} className="p-4 bg-green-50 rounded-lg">
+                  {label}
+                </div>
               ))}
             </div>
           </div>

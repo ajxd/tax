@@ -8,16 +8,13 @@ import { FiClock, FiDollarSign, FiShield, FiUsers, FiPhone } from "react-icons/f
 import { motion, useViewportScroll, useTransform } from "framer-motion";
 
 export default function BusinessTaxServicesPage() {
-  // WhatsApp deep link
   const whatsappLink =
     "https://api.whatsapp.com/send?phone=919985554909&text=" +
     encodeURIComponent("Hello, I need help with Business Tax Services.");
 
-  // Navbar state
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
 
-  // Features list (Indian context)
   const features = [
     "Corporate Tax Filing (ITR‑6)",
     "Partnership & Proprietorship Returns (ITR‑5/ITR‑4)",
@@ -27,7 +24,6 @@ export default function BusinessTaxServicesPage() {
     "Tax Advisory & Consultations",
   ];
 
-  // Why Choose Us (Indian context)
   const whyChoose = [
     {
       icon: <FiClock size={32} />,
@@ -51,7 +47,6 @@ export default function BusinessTaxServicesPage() {
     },
   ];
 
-  // Parallax for banner image
   const { scrollY } = useViewportScroll();
   const parallax = useTransform(scrollY, [0, 300], [0, 100]);
 
@@ -69,12 +64,12 @@ export default function BusinessTaxServicesPage() {
         />
         <div className="absolute inset-0 bg-black/60" />
 
-        {/* Nav */}
+        {/* NAV */}
         <nav className="absolute top-0 left-0 w-full z-20 px-6 md:px-16 py-6 flex justify-between items-center">
           <Link href="/">
             <img
               src="/Blue Minimalist Financial Consulting Agency Logo.png"
-              alt="Company Logo"
+              alt="Logo"
               className="h-20 md:h-24 lg:h-28 object-contain drop-shadow-lg"
             />
           </Link>
@@ -91,78 +86,97 @@ export default function BusinessTaxServicesPage() {
               {servicesOpen && (
                 <ul className="absolute top-full left-0 mt-2 w-56 bg-white text-black rounded-lg shadow-lg">
                   <li>
-                    <Link href="/income-tax-services" className="block px-4 py-2 hover:bg-gray-100">
+                    <Link href="/income-tax-services" className="block px-6 py-2 hover:bg-gray-100">
                       Income Tax Services
                     </Link>
                   </li>
                   <li>
-                    <Link href="/business-tax-services" className="block px-4 py-2 hover:bg-gray-100">
+                    <Link href="/business-tax-services" className="block px-6 py-2 hover:bg-gray-100">
                       Business Tax Services
                     </Link>
                   </li>
                   <li>
-                    <Link href="/gst-tax-services" className="block px-4 py-2 hover:bg-gray-100">
+                    <Link href="/gst-tax-services" className="block px-6 py-2 hover:bg-gray-100">
                       GST Tax Services
                     </Link>
                   </li>
                   <li>
-                    <Link href="/gst-number-registration" className="block px-4 py-2 hover:bg-gray-100">
+                    <Link href="/gst-number-registration" className="block px-6 py-2 hover:bg-gray-100">
                       GST Registration
                     </Link>
                   </li>
                 </ul>
               )}
             </div>
-           
           </div>
           <button
             className="lg:hidden text-white text-2xl"
-            onClick={() => setMobileOpen((o) => !o)}
+            onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
             ☰
           </button>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* MOBILE MENU */}
         {mobileOpen && (
           <div className="lg:hidden absolute top-[72px] left-0 w-full bg-black bg-opacity-90 py-4 space-y-2 z-20">
-            <Link href="/" className="block px-6 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
-              Home
-            </Link>
-            <Link href="#about" className="block px-6 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
-              About Us
-            </Link>
-            <Link href="/file-your-tax" className="block px-6 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
-              File Your ITR
-            </Link>
+            {[
+              { href: "/", label: "Home" },
+              { href: "#about", label: "About Us" },
+              { href: "/file-your-tax", label: "File Your ITR" },
+            ].map((it) => (
+              <Link
+                key={it.href}
+                href={it.href}
+                className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+                onClick={() => setMobileOpen(false)}
+              >
+                {it.label}
+              </Link>
+            ))}
             <button
               className="w-full text-left px-6 py-2 text-white hover:bg-white hover:text-black"
-              onClick={() => setServicesOpen((o) => !o)}
+              onClick={() => setServicesOpen(!servicesOpen)}
             >
               Services ▾
             </button>
             {servicesOpen && (
-              <div className="pl-4">
-                <Link href="/income-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
+              <div className="pl-6">
+                <Link
+                  href="/income-tax-services"
+                  className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+                  onClick={() => setMobileOpen(false)}
+                >
                   Income Tax Services
                 </Link>
-                <Link href="/business-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
+                <Link
+                  href="/business-tax-services"
+                  className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+                  onClick={() => setMobileOpen(false)}
+                >
                   Business Tax Services
                 </Link>
-                <Link href="/gst-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
+                <Link
+                  href="/gst-tax-services"
+                  className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+                  onClick={() => setMobileOpen(false)}
+                >
                   GST Tax Services
                 </Link>
-                <Link href="/gst-number-registration" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
+                <Link
+                  href="/gst-number-registration"
+                  className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+                  onClick={() => setMobileOpen(false)}
+                >
                   GST Registration
                 </Link>
               </div>
             )}
-            
           </div>
         )}
 
-        {/* Hero Content */}
+        {/* HERO CONTENT */}
         <div className="relative z-10 max-w-6xl mx-auto flex items-center h-full px-6">
           <motion.div
             className="w-full md:w-1/2 text-white space-y-6"

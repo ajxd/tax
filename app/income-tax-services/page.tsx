@@ -15,7 +15,6 @@ export default function IncomeTaxServicesPage() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
 
-  // Indian‑focused features
   const features = [
     "ITR‑1 & ITR‑2 E‑Filing",
     "TDS Return Filing (Form 26Q)",
@@ -25,7 +24,6 @@ export default function IncomeTaxServicesPage() {
     "Revised Return (ITR‑V) Processing",
   ];
 
-  // Why choose us—Indian context
   const whyChoose = [
     {
       icon: <FiClock size={32} />,
@@ -49,7 +47,6 @@ export default function IncomeTaxServicesPage() {
     },
   ];
 
-  // Parallax for desktop illustration
   const { scrollY } = useViewportScroll();
   const parallax = useTransform(scrollY, [0, 300], [0, 100]);
 
@@ -67,26 +64,19 @@ export default function IncomeTaxServicesPage() {
         />
         <div className="absolute inset-0 bg-black/60" />
 
-        {/* Nav */}
-        <nav className="absolute top-0 left-0 w-full z-20 px-4 sm:px-6 lg:px-16 py-4 flex justify-between items-center">
+        {/* NAV */}
+        <nav className="absolute top-0 left-0 w-full z-20 px-4 sm:px-6 lg:px-16 py-4 flex justify-between items-center text-white">
           <Link href="/">
             <img
               src="/Blue Minimalist Financial Consulting Agency Logo.png"
-              alt="Company Logo"
+              alt="Logo"
               className="h-12 sm:h-16 md:h-20 lg:h-24 object-contain drop-shadow-lg"
             />
           </Link>
-
-          <div className="hidden lg:flex items-center space-x-6 text-white">
-            <Link href="/" className="hover:text-blue-300">
-              Home
-            </Link>
-            <Link href="#about" className="hover:text-blue-300">
-              About Us
-            </Link>
-            <Link href="/file-your-tax" className="hover:text-blue-300">
-              File Your Tax
-            </Link>
+          <div className="hidden lg:flex items-center space-x-6">
+            <Link href="/" className="hover:text-blue-300">Home</Link>
+            <Link href="#about" className="hover:text-blue-300">About Us</Link>
+            <Link href="/file-your-tax" className="hover:text-blue-300">File Your Tax</Link>
             <div
               className="relative"
               onMouseEnter={() => setServicesOpen(true)}
@@ -95,41 +85,33 @@ export default function IncomeTaxServicesPage() {
               <button className="hover:text-blue-300">Services ▾</button>
               {servicesOpen && (
                 <ul className="absolute top-full left-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg">
-                  {[
-                    "income-tax-services",
-                    "business-tax-services",
-                    "gst-tax-services",
-                    "gst-number-registration",
-                  ].map((path) => (
+                  {["income-tax-services", "business-tax-services", "gst-tax-services", "gst-number-registration"].map((path) => (
                     <li key={path}>
                       <Link
                         href={`/${path}`}
-                        className="block px-4 py-2 hover:bg-gray-100"
+                        className="block px-6 py-2 hover:bg-gray-100"
                       >
-                        {path
-                          .replace(/-/g, " ")
-                          .replace(/\b\w/g, (l) => l.toUpperCase())}
+                        {path.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())}
                       </Link>
                     </li>
                   ))}
                 </ul>
               )}
             </div>
-            
+            <Link href="#contact" className="hover:text-blue-300">Contact Us</Link>
           </div>
-
           <button
             className="lg:hidden text-white text-2xl"
-            onClick={() => setMobileOpen((o) => !o)}
+            onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
             ☰
           </button>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* MOBILE MENU */}
         {mobileOpen && (
-          <div className="lg:hidden absolute top-16 left-0 w-full bg-black bg-opacity-90 py-4 space-y-2 z-20">
+          <div className="lg:hidden absolute top-[64px] left-0 w-full bg-black bg-opacity-90 py-4 space-y-2 z-20">
             {[
               { label: "Home", href: "/" },
               { label: "About Us", href: "#about" },
@@ -146,22 +128,22 @@ export default function IncomeTaxServicesPage() {
             ))}
             <button
               className="w-full text-left px-6 py-2 text-white hover:bg-white hover:text-black"
-              onClick={() => setServicesOpen((o) => !o)}
+              onClick={() => setServicesOpen(!servicesOpen)}
             >
               Services ▾
             </button>
             {servicesOpen && (
-              <div className="bg-black bg-opacity-90">
+              <div className="pl-6">
                 {[
                   { label: "Income Tax Services", href: "/income-tax-services" },
                   { label: "Business Tax Services", href: "/business-tax-services" },
                   { label: "GST Tax Services", href: "/gst-tax-services" },
-                  { label: "GST Number Registration", href: "/gst-number-registration" },
+                  { label: "GST Registration", href: "/gst-number-registration" },
                 ].map((it) => (
                   <Link
                     key={it.href}
                     href={it.href}
-                    className="block px-8 py-2 text-white hover:bg-white hover:text-black"
+                    className="block px-6 py-2 text-white hover:bg-white hover:text-black"
                     onClick={() => setMobileOpen(false)}
                   >
                     {it.label}
@@ -169,11 +151,17 @@ export default function IncomeTaxServicesPage() {
                 ))}
               </div>
             )}
-            
+            <Link
+              href="#contact"
+              className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+              onClick={() => setMobileOpen(false)}
+            >
+              Contact Us
+            </Link>
           </div>
         )}
 
-        {/* Hero Content */}
+        {/* HERO CONTENT */}
         <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-center h-full text-center px-4 sm:px-6 lg:px-0">
           <motion.h1
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4"
@@ -245,9 +233,7 @@ export default function IncomeTaxServicesPage() {
         {/* WHY CHOOSE US */}
         <section className="py-12 sm:py-16 bg-gray-50">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
-              Why Choose Us
-            </h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">Why Choose Us</h2>
           </div>
           <div className="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {whyChoose.map((item, i) => (

@@ -6,10 +6,10 @@ import CountUp from "react-countup";
 import { motion, Variants } from "framer-motion";
 
 const metrics = [
-  { label: "Years", end: 9, suffix: "+" },
-  { label: "Clients", end: 15, suffix: "K+" },
-  { label: "Files", end: 20, suffix: "K+" },
-  { label: "Rating", end: 4.9, suffix: " Reviews", decimals: 1 },
+  { label: "Years", end: 14, suffix: "+" },
+  { label: "Clients", end: 0, suffix: "K+" },
+  { label: "Files", end: 0, suffix: "K+" },
+  
 ];
 
 const pillVariants: Variants = {

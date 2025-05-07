@@ -1,5 +1,5 @@
+// app/layout.tsx (or wherever your RootLayout lives)
 "use client";
-import LeavesFalling from "@/components/LeavesFalling";
 
 export default function RootLayout({
   children,
@@ -25,13 +25,10 @@ export default function RootLayout({
         {/* 2) Dark + blur overlay */}
         <div className="absolute inset-0 bg-black/30 backdrop-blur-sm pointer-events-none z-10" />
 
-        {/* 3) Falling leaves above the overlay */}
-        <div className="absolute inset-0 pointer-events-none z-20">
-          <LeavesFalling />
+        {/* 3) Your page content */}
+        <div className="relative z-30">
+          {children}
         </div>
-
-        {/* 4) Your page content */}
-        <div className="relative z-30">{children}</div>
       </body>
     </html>
   );

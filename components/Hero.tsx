@@ -26,27 +26,22 @@ export default function Hero() {
       />
       <div className="absolute inset-0 bg-black/50" />
 
-      {/* Nav */}
-      <nav className="absolute top-0 left-0 w-full px-4 md:px-16 py-4 flex items-center z-20">
-        {/* Logo (center on mobile, left on desktop) */}
-        <div className="flex-1 flex justify-center lg:justify-start">
-          <Link href="/" className="h-16 md:h-16 lg:h-20">
-            <img
-              src="/Blue Minimalist Financial Consulting Agency Logo.png"
-              alt="Company Logo"
-              className="object-contain drop-shadow-lg w-auto h-full"
-            />
-          </Link>
-        </div>
+      {/* Navbar */}
+      <nav className="absolute top-0 left-0 w-full z-20 px-4 sm:px-6 lg:px-16 py-4 flex justify-between items-center">
+        {/* Logo */}
+        <Link href="/" className="h-12 sm:h-16 md:h-20 lg:h-24">
+          <img
+            src="/Blue Minimalist Financial Consulting Agency Logo.png"
+            alt="Company Logo"
+            className="object-contain drop-shadow-lg w-auto h-full"
+          />
+        </Link>
 
-        {/* Desktop nav (unchanged) */}
-        <div className="hidden lg:flex items-center space-x-8 text-white">
-          <Link href="/about-us" className="hover:text-blue-300">
-            About Us
-          </Link>
-          <Link href="/file-your-tax" className="hover:text-blue-300">
-            File Your Tax
-          </Link>
+        {/* Desktop menu */}
+        <div className="hidden lg:flex items-center space-x-6 text-white">
+          <Link href="/" className="hover:text-blue-300">Home</Link>
+          <Link href="/about-us" className="hover:text-blue-300">About Us</Link>
+          <Link href="/file-your-tax" className="hover:text-blue-300">File Your Tax</Link>
           <div
             className="relative"
             onMouseEnter={() => setServicesOpen(true)}
@@ -56,41 +51,29 @@ export default function Hero() {
             {servicesOpen && (
               <ul className="absolute top-full left-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg">
                 <li>
-                  <Link
-                    href="/income-tax-services"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
+                  <Link href="/income-tax-services" className="block px-4 py-2 hover:bg-gray-100">
                     Income Tax Services
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/business-tax-services"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
+                  <Link href="/business-tax-services" className="block px-4 py-2 hover:bg-gray-100">
                     Business Tax Services
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/gst-tax-services"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
+                  <Link href="/gst-tax-services" className="block px-4 py-2 hover:bg-gray-100">
                     GST Tax Services
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/gst-number-registration"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
+                  <Link href="/gst-number-registration" className="block px-4 py-2 hover:bg-gray-100">
                     GST Number Registration
                   </Link>
                 </li>
               </ul>
             )}
           </div>
-         
+          
         </div>
 
         {/* Mobile hamburger */}
@@ -103,79 +86,70 @@ export default function Hero() {
         </button>
       </nav>
 
-      {/* Mobile slide‑in menu */}
-      <div
-        className={`fixed inset-0 bg-black/90 z-30 transform ${
-          mobileOpen ? "translate-x-0" : "translate-x-full"
-        } transition-transform duration-300 flex flex-col pt-20 items-center space-y-6`}
-      >
-        <button
-          className="absolute top-6 right-6 text-3xl text-white"
-          onClick={() => setMobileOpen(false)}
-          aria-label="Close menu"
-        >
-          ✕
-        </button>
-        <Link
-          href="/about-us"
-          className="text-2xl text-white hover:text-blue-300"
-          onClick={() => setMobileOpen(false)}
-        >
-          About Us
-        </Link>
-        <Link
-          href="/file-your-tax"
-          className="text-2xl text-white hover:text-blue-300"
-          onClick={() => setMobileOpen(false)}
-        >
-          File Your Tax
-        </Link>
-        <div className="w-full px-6">
+      {/* MOBILE MENU */}
+      {mobileOpen && (
+        <div className="lg:hidden absolute top-[64px] left-0 w-full bg-black bg-opacity-90 py-4 space-y-2 z-20">
+          {/* Main links */}
+          {[
+            { label: "Home", href: "/" },
+            { label: "About Us", href: "/about-us" },
+            { label: "File Your Tax", href: "/file-your-tax" },
+          ].map((it) => (
+            <Link
+              key={it.href}
+              href={it.href}
+              className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+              onClick={() => setMobileOpen(false)}
+            >
+              {it.label}
+            </Link>
+          ))}
+
+          {/* Services submenu toggle */}
           <button
-            className="w-full flex justify-between text-2xl text-white hover:text-blue-300"
+            className="w-full text-left px-6 py-2 text-white hover:bg-white hover:text-black"
             onClick={() => setServicesOpen((o) => !o)}
           >
             Services ▾
           </button>
+
+          {/* Submenu items */}
           {servicesOpen && (
-            <div className="mt-4 space-y-4 pl-4">
-              <Link
-                href="/income-tax-services"
-                className="block text-xl text-white hover:text-blue-300"
-                onClick={() => setMobileOpen(false)}
-              >
-                Income Tax Services
-              </Link>
-              <Link
-                href="/business-tax-services"
-                className="block text-xl text-white hover:text-blue-300"
-                onClick={() => setMobileOpen(false)}
-              >
-                Business Tax Services
-              </Link>
-              <Link
-                href="/gst-tax-services"
-                className="block text-xl text-white hover:text-blue-300"
-                onClick={() => setMobileOpen(false)}
-              >
-                GST Tax Services
-              </Link>
-              <Link
-                href="/gst-number-registration"
-                className="block text-xl text-white hover:text-blue-300"
-                onClick={() => setMobileOpen(false)}
-              >
-                GST Number Registration
-              </Link>
+            <div className="pl-6">
+              {[
+                { label: "Income Tax Services", href: "/income-tax-services" },
+                { label: "Business Tax Services", href: "/business-tax-services" },
+                { label: "GST Tax Services", href: "/gst-tax-services" },
+                { label: "GST Number Registration", href: "/gst-number-registration" },
+              ].map((it) => (
+                <Link
+                  key={it.href}
+                  href={it.href}
+                  className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {it.label}
+                </Link>
+              ))}
             </div>
           )}
+
+          {/* Contact link */}
+          
+
+          {/* Close button */}
+          <button
+            className="absolute top-4 right-4 text-2xl text-white"
+            onClick={() => setMobileOpen(false)}
+            aria-label="Close menu"
+          >
+            ✕
+          </button>
         </div>
-       
-      </div>
+      )}
 
       {/* Hero content */}
       <div className="relative z-10 flex flex-col md:flex-row items-center h-full px-6 pt-24 md:pt-0">
-        {/* Text */}
         <motion.div
           className="w-full md:w-1/2 text-white space-y-6"
           initial={{ opacity: 0, x: -50 }}
@@ -206,8 +180,6 @@ export default function Hero() {
             </Link>
           </div>
         </motion.div>
-
-        {/* Image */}
         <motion.div
           className="w-3/4 h-48 mx-auto mt-8 md:w-full md:h-full md:mt-0"
           initial={{ opacity: 0, x: 50 }}

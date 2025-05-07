@@ -1,8 +1,4 @@
 {
-  "/gst-tax-services/page": "app/gst-tax-services/page.js",
-  "/gst-number-registration/page": "app/gst-number-registration/page.js",
-  "/file-your-tax/page": "app/file-your-tax/page.js",
-  "/page": "app/page.js",
-  "/business-tax-services/page": "app/business-tax-services/page.js",
-  "/income-tax-services/page": "app/income-tax-services/page.js"
+  "/about-us/page": "app/about-us/page.js",
+  "/page": "app/page.js"
 }

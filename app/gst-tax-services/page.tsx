@@ -47,7 +47,6 @@ export default function GstTaxServicesPage() {
     },
   ];
 
-  // parallax for desktop illustration
   const { scrollY } = useViewportScroll();
   const parallax = useTransform(scrollY, [0, 300], [0, 100]);
 
@@ -66,7 +65,7 @@ export default function GstTaxServicesPage() {
         <div className="absolute inset-0 bg-black/60" />
 
         {/* NAV */}
-        <nav className="absolute top-0 left-0 w-full z-20 px-4 sm:px-6 lg:px-16 py-4 flex justify-between items-center">
+        <nav className="absolute top-0 left-0 w-full z-20 px-4 sm:px-6 lg:px-16 py-4 flex justify-between items-center text-white">
           <Link href="/">
             <img
               src="/Blue Minimalist Financial Consulting Agency Logo.png"
@@ -74,16 +73,10 @@ export default function GstTaxServicesPage() {
               className="h-12 sm:h-16 md:h-20 lg:h-24 object-contain drop-shadow-lg"
             />
           </Link>
-          <div className="hidden lg:flex items-center space-x-6 text-white">
-            <Link href="/" className="hover:text-blue-300">
-              Home
-            </Link>
-            <Link href="#about" className="hover:text-blue-300">
-              About Us
-            </Link>
-            <Link href="/file-your-tax" className="hover:text-blue-300">
-              File Your Tax
-            </Link>
+          <div className="hidden lg:flex items-center space-x-6">
+            <Link href="/" className="hover:text-blue-300">Home</Link>
+            <Link href="#about" className="hover:text-blue-300">About Us</Link>
+            {/* no File Your Tax here */}
             <div
               className="relative"
               onMouseEnter={() => setServicesOpen(true)}
@@ -92,29 +85,34 @@ export default function GstTaxServicesPage() {
               <button className="hover:text-blue-300">Services ▾</button>
               {servicesOpen && (
                 <ul className="absolute top-full left-0 mt-2 w-56 bg-white text-black rounded-lg shadow-lg">
-                  {[
-                    { href: "/income-tax-services", label: "Income Tax Services" },
-                    { href: "/business-tax-services", label: "Business Tax Services" },
-                    { href: "/gst-tax-services", label: "GST Tax Services" },
-                    { href: "/gst-number-registration", label: "GST Registration" },
-                  ].map((s) => (
-                    <li key={s.href}>
-                      <Link href={s.href} className="block px-4 py-2 hover:bg-gray-100">
-                        {s.label}
-                      </Link>
-                    </li>
-                  ))}
+                  <li>
+                    <Link href="/income-tax-services" className="block px-6 py-2 hover:bg-gray-100">
+                      Income Tax Services
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/business-tax-services" className="block px-6 py-2 hover:bg-gray-100">
+                      Business Tax Services
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/gst-tax-services" className="block px-6 py-2 hover:bg-gray-100">
+                      GST Tax Services
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/gst-number-registration" className="block px-6 py-2 hover:bg-gray-100">
+                      GST Registration
+                    </Link>
+                  </li>
                 </ul>
               )}
             </div>
-            <Link href="#contact" className="hover:text-blue-300">
-              Contact Us
-            </Link>
+            <Link href="#contact" className="hover:text-blue-300">Contact Us</Link>
           </div>
-
           <button
             className="lg:hidden text-white text-2xl"
-            onClick={() => setMobileOpen((o) => !o)}
+            onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
             ☰
@@ -123,11 +121,10 @@ export default function GstTaxServicesPage() {
 
         {/* MOBILE MENU */}
         {mobileOpen && (
-          <div className="lg:hidden absolute top-16 left-0 w-full bg-black bg-opacity-90 py-4 space-y-2 z-20">
+          <div className="lg:hidden absolute top-[64px] left-0 w-full bg-black bg-opacity-90 py-4 space-y-2 z-20">
             {[
               { href: "/", label: "Home" },
               { href: "#about", label: "About Us" },
-              { href: "/file-your-tax", label: "File Your Tax" },
             ].map((it) => (
               <Link
                 key={it.href}
@@ -140,26 +137,49 @@ export default function GstTaxServicesPage() {
             ))}
             <button
               className="w-full text-left px-6 py-2 text-white hover:bg-white hover:text-black"
-              onClick={() => setServicesOpen((o) => !o)}
+              onClick={() => setServicesOpen(!servicesOpen)}
             >
               Services ▾
             </button>
             {servicesOpen && (
-              <div className="pl-4">
-                <Link href="/income-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
+              <div className="pl-6">
+                <Link
+                  href="/income-tax-services"
+                  className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+                  onClick={() => setMobileOpen(false)}
+                >
                   Income Tax Services
                 </Link>
-                <Link href="/business-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
+                <Link
+                  href="/business-tax-services"
+                  className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+                  onClick={() => setMobileOpen(false)}
+                >
                   Business Tax Services
                 </Link>
-                <Link href="/gst-tax-services" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
+                <Link
+                  href="/gst-tax-services"
+                  className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+                  onClick={() => setMobileOpen(false)}
+                >
                   GST Tax Services
                 </Link>
-                <Link href="/gst-number-registration" className="block px-4 py-2 text-white hover:bg-white hover:text-black" onClick={() => setMobileOpen(false)}>
+                <Link
+                  href="/gst-number-registration"
+                  className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+                  onClick={() => setMobileOpen(false)}
+                >
                   GST Registration
                 </Link>
               </div>
             )}
+            <Link
+              href="#contact"
+              className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+              onClick={() => setMobileOpen(false)}
+            >
+              Contact Us
+            </Link>
           </div>
         )}
 
@@ -181,22 +201,15 @@ export default function GstTaxServicesPage() {
           >
             Complete GST registration, filings & compliance support for Indian businesses.
           </motion.p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link
-              href="/file-your-tax"
-              className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow hover:opacity-90 transition text-center"
-            >
-              File Your Tax
-            </Link>
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg shadow hover:opacity-90 transition text-center"
-            >
-              WhatsApp Support
-            </a>
-          </div>
+          {/* only WhatsApp button */}
+          <a
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg shadow hover:opacity-90 transition text-center"
+          >
+            WhatsApp Support
+          </a>
         </div>
 
         {/* PARALLAX IMAGE */}
@@ -243,7 +256,7 @@ export default function GstTaxServicesPage() {
             {whyChoose.map((item, i) => (
               <motion.div
                 key={i}
-                className="p-6 bg-white rounded-lg shadow hover:shadow-xl transform hover:scale-105 transition"
+                className="p-6 bg-white rounded-lg shadow hover:shadow-xl transition-transform transform hover:scale-105"
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}

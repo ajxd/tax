@@ -9,7 +9,6 @@ const metrics = [
   { label: "Years", end: 14, suffix: "+" },
   { label: "Clients", end: 0, suffix: "K+" },
   { label: "Files", end: 0, suffix: "K+" },
-  
 ];
 
 const pillVariants: Variants = {
@@ -57,7 +56,6 @@ export default function ClientsSection() {
                   start={0}
                   end={m.end}
                   suffix={m.suffix}
-                  decimals={m.decimals || 0}
                   duration={2}
                 />
               </div>

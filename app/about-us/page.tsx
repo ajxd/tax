@@ -172,13 +172,7 @@ export default function AboutUsPage() {
             )}
 
             {/* Contact */}
-            <Link
-              href="#contact"
-              className="block px-6 py-2 text-white hover:bg-white hover:text-black"
-              onClick={() => setMobileOpen(false)}
-            >
-              Contact Us
-            </Link>
+            
           </div>
         )}
 
@@ -275,7 +269,7 @@ export default function AboutUsPage() {
               }}
             >
               {[
-                "For over nine years, Parasuraman Auditing Firm has been more than just a number‑cruncher—we’ve been a trusted partner to businesses, professionals, and individuals across India.",
+                "For over fourteen years, Parasuraman Auditing Firm has been more than just a number‑cruncher—we’ve been a trusted partner to businesses, professionals, and individuals across India.",
                 "It’s about building trust, fostering lasting relationships, and guiding you through every step of your financial journey.",
               ].map((txt, idx) => (
                 <motion.p
@@ -323,44 +317,10 @@ export default function AboutUsPage() {
           </div>
         </section>
 
-        {/* OUR CLIENTS */}
-        <section className="py-12 bg-white">
-          <div className="max-w-4xl mx-auto px-4 text-center space-y-4">
-            <h3 className="text-2xl font-semibold">Our Clients</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                "Ride‑share Drivers",
-                "Salaried Professionals",
-                "Small Business Owners",
-                "Freelancers & Consultants",
-              ].map((label) => (
-                <div key={label} className="p-4 bg-green-50 rounded-lg">
-                  {label}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        
 
         {/* CONTACT */}
-        <section id="contact" className="py-12 bg-gradient-to-r from-green-50 to-white">
-          <div className="max-w-3xl mx-auto px-4 text-center space-y-2">
-            <p>Flat 213,</p>
-            <p>1‑1‑85/A, MG Road, Hyderabad – 500001, Telangana, India</p>
-            <p className="space-x-2">
-              <a href="tel:+919985554909" className="text-green-600 hover:underline">
-                +91 99855 54909
-              </a>
-              <span>•</span>
-              <a
-                href="mailto:itreturnhyd@gmail.com"
-                className="text-green-600 hover:underline"
-              >
-                itreturnhyd@gmail.com
-              </a>
-            </p>
-          </div>
-        </section>
+       
       </main>
 
       <Footer />

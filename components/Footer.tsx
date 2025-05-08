@@ -15,15 +15,7 @@ export default function Footer() {
         {/* Contact Info */}
         <div className="space-y-4">
           <h3 className="text-xl font-semibold">Get in Touch</h3>
-          <div className="flex items-center space-x-3 group">
-            <FiMail className="text-2xl transition-transform transform group-hover:scale-110" />
-            <a
-              href="mailto:itreturnhyd@gmail.com"
-              className="hover:text-white transition-colors"
-            >
-              itreturnhyd@gmail.com
-            </a>
-          </div>
+          
           <div className="flex items-center space-x-3 group">
             <FiPhone className="text-2xl transition-transform transform group-hover:scale-110 text-green-400" />
             <a

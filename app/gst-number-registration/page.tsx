@@ -53,7 +53,7 @@ export default function GstNumberRegistrationPage() {
   return (
     <>
       {/* HERO */}
-      <section className="relative h-screen flex flex-col md:flex-row overflow-hidden">
+      <section id="hero" className="relative h-screen overflow-hidden">
         <video
           className="absolute inset-0 w-full h-full object-cover"
           src="/banner-bg.mp4"
@@ -64,8 +64,8 @@ export default function GstNumberRegistrationPage() {
         />
         <div className="absolute inset-0 bg-black/60" />
 
-        {/* NAVBAR */}
-        <nav className="absolute top-0 left-0 w-full z-20 px-4 sm:px-6 lg:px-16 py-4 flex items-center justify-between text-white">
+        {/* NAV */}
+        <nav className="absolute top-0 left-0 w-full z-20 px-4 sm:px-6 lg:px-16 py-4 flex justify-between items-center text-white">
           <Link href="/">
             <img
               src="/Blue Minimalist Financial Consulting Agency Logo.png"
@@ -75,8 +75,7 @@ export default function GstNumberRegistrationPage() {
           </Link>
           <div className="hidden lg:flex items-center space-x-6">
             <Link href="/" className="hover:text-blue-300">Home</Link>
-            <Link href="#about" className="hover:text-blue-300">About Us</Link>
-            {/* no File Your Tax here */}
+            <Link href="/about-us" className="hover:text-blue-300">About Us</Link>
             <div
               className="relative"
               onMouseEnter={() => setServicesOpen(true)}
@@ -108,7 +107,6 @@ export default function GstNumberRegistrationPage() {
                 </ul>
               )}
             </div>
-            
           </div>
           <button
             className="lg:hidden text-white text-2xl"
@@ -122,10 +120,7 @@ export default function GstNumberRegistrationPage() {
         {/* MOBILE MENU */}
         {mobileOpen && (
           <div className="lg:hidden absolute top-[64px] left-0 w-full bg-black bg-opacity-90 py-4 space-y-2 z-20">
-            {[
-              { href: "/", label: "Home" },
-              { href: "#about", label: "About Us" },
-            ].map((it) => (
+            {[{ href: "/", label: "Home" },  { label: "About Us", href: "/about-us" }].map((it) => (
               <Link
                 key={it.href}
                 href={it.href}
@@ -143,172 +138,158 @@ export default function GstNumberRegistrationPage() {
             </button>
             {servicesOpen && (
               <div className="pl-6">
-                <Link
-                  href="/income-tax-services"
-                  className="block px-6 py-2 text-white hover:bg-white hover:text-black"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Income Tax Services
-                </Link>
-                <Link
-                  href="/business-tax-services"
-                  className="block px-6 py-2 text-white hover:bg-white hover:text-black"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Business Tax Services
-                </Link>
-                <Link
-                  href="/gst-tax-services"
-                  className="block px-6 py-2 text-white hover:bg-white hover:text-black"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  GST Tax Services
-                </Link>
-                <Link
-                  href="/gst-number-registration"
-                  className="block px-6 py-2 text-white hover:bg-white hover:text-black"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  GST Registration
-                </Link>
+                {[
+                  { href: "/income-tax-services", label: "Income Tax Services" },
+                  { href: "/business-tax-services", label: "Business Tax Services" },
+                  { href: "/gst-tax-services", label: "GST Tax Services" },
+                  { href: "/gst-number-registration", label: "GST Registration" },
+                ].map((it) => (
+                  <Link
+                    key={it.href}
+                    href={it.href}
+                    className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {it.label}
+                  </Link>
+                ))}
               </div>
             )}
-            
           </div>
         )}
 
         {/* HERO CONTENT */}
-        <div className="relative z-10 flex-1 flex flex-col justify-center px-4 sm:px-6 lg:px-16">
+        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-center h-full text-center px-4 sm:px-6 lg:px-0">
           <motion.h1
-            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-4"
-            initial={{ opacity: 0, y: 10 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
             GST Number Registration
           </motion.h1>
           <motion.p
-            className="text-lg sm:text-xl text-gray-200 mb-6"
-            initial={{ opacity: 0, y: 10 }}
+            className="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
             Obtain your GSTIN quickly and accurately for your Indian business.
           </motion.p>
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            {/* only WhatsApp */}
+          <div className="flex flex-col sm:flex-row gap-4">
             <a
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 bg-green-500 text-white rounded-lg text-center hover:opacity-90 transition"
+              className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg shadow hover:opacity-90 transition text-center"
             >
-              <FiPhone className="inline-block mr-2" /> WhatsApp Us
+              Get Help on WhatsApp
             </a>
-          </motion.div>
+          </div>
         </div>
 
         {/* Parallax Image */}
         <motion.div
           style={{ y: parallax }}
-          className="hidden md:block md:w-1/2 h-full"
+          className="hidden md:block absolute top-0 right-0 w-1/2 h-full"
         >
           <img
             src="/banner.png"
             alt="GST Registration Illustration"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover rounded-l-lg shadow-lg"
           />
         </motion.div>
       </section>
 
-      <main className="space-y-16">
-        {/* ABOUT */}
-        <section id="about" className="py-12 bg-white">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-              Why GST Registration Matters
-            </h2>
-            <p className="text-gray-700">
-              A valid GSTIN lets you legally collect GST, claim input tax credits, and
-              comply with India's GST laws. We manage the end‑to‑end registration
-              process so you can focus on growing your business.
-            </p>
-          </div>
-        </section>
-
+      <main className="flex flex-col">
         {/* FEATURES */}
-        <section className="py-12 bg-gray-50">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <section className="py-12 sm:py-16 bg-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
             {features.map((feat, i) => (
               <motion.div
                 key={i}
-                className="bg-white p-6 rounded-lg shadow text-center"
-                initial={{ opacity: 0, y: 20 }}
+                className="flex items-start space-x-3"
+                initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.2 }}
+                transition={{ delay: i * 0.1 }}
               >
-                <h3 className="font-semibold mb-2">{feat}</h3>
+                <span className="mt-1 text-green-600 text-2xl">✔</span>
+                <p className="text-gray-700">{feat}</p>
               </motion.div>
             ))}
           </div>
         </section>
 
         {/* WHY CHOOSE US */}
-        <section className="py-12 bg-white">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8">
-              What Sets Us Apart
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {whyChoose.map((item, i) => (
-                <motion.div
-                  key={i}
-                  className="bg-gray-50 p-6 rounded-lg shadow flex flex-col items-center text-center"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.2 }}
-                >
-                  <div className="text-blue-600 mb-3">{item.icon}</div>
-                  <h4 className="font-semibold mb-2">{item.title}</h4>
-                  <p className="text-gray-700 text-sm">{item.desc}</p>
-                </motion.div>
-              ))}
-            </div>
+        <section className="py-12 sm:py-16 bg-gray-50">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">Why Choose Us</h2>
+          </div>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {whyChoose.map((item, i) => (
+              <motion.div
+                key={i}
+                className="p-6 bg-white rounded-lg shadow hover:shadow-xl transition-transform transform hover:scale-105"
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <div className="text-blue-600 mb-3">{item.icon}</div>
+                <h3 className="font-semibold mb-2">{item.title}</h3>
+                <p className="text-gray-600 text-sm">{item.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </section>
 
-        {/* FINAL CTA */}
-        <section className="py-12 bg-gradient-to-r from-blue-600 to-green-600 text-white text-center">
-          <h3 className="text-xl sm:text-2xl font-semibold mb-4">Ready to Get Your GSTIN?</h3>
-          <p className="mb-6">Let's register your business swiftly and accurately.</p>
-          <Link
-            href="/file-your-tax"
-            className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-full shadow hover:opacity-90 transition"
-          >
-            Get Started
-          </Link>
-        </section>
+        {/* FLOATING WHATSAPP CTA */}
+        <a
+          href={whatsappLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 bg-gradient-to-r from-[#25D366] to-[#128C7E] p-4 rounded-full shadow-lg text-white animate-bounce"
+        >
+          <FiPhone size={24} />
+        </a>
 
-        {/* CONTACT */}
-        <section id="contact" className="py-12 bg-white">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-2">
-            <p>123, MG Road, Bengaluru, Karnataka 560001, India</p>
-            <p>
-              <a href="tel:+918012345678" className="text-blue-600 hover:underline">
-                +91 80123 45678
+        {/* TALK TO AN EXPERT */}
+        <section className="py-12 sm:py-16 bg-gradient-to-r from-blue-50 to-green-50">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center gap-8">
+            <motion.div
+              className="w-full lg:w-1/2"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <img
+                src="/expert.jpg"
+                alt="Talk to an Expert"
+                className="w-full h-auto rounded-lg shadow-md"
+              />
+            </motion.div>
+            <motion.div
+              className="w-full lg:w-1/2 text-center lg:text-left space-y-4"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <h2 className="text-2xl sm:text-3xl font-extrabold">Talk to an Expert</h2>
+              <p className="text-gray-700">
+                Our GST specialists are on standby to handle all your queries.
+              </p>
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-6 py-3 bg-gradient-to-r from-[#25D366] to-[#128C7E] text-white rounded-lg shadow hover:opacity-90 transition"
+              >
+                Connect on WhatsApp
               </a>
-              {" • "}
-              <a href="mailto:support@cnotein.com" className="text-blue-600 hover:underline">
-                support@cnotein.com
-              </a>
-            </p>
+            </motion.div>
           </div>
         </section>
 

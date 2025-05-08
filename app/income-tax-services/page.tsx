@@ -75,7 +75,8 @@ export default function IncomeTaxServicesPage() {
           </Link>
           <div className="hidden lg:flex items-center space-x-6">
             <Link href="/" className="hover:text-blue-300">Home</Link>
-            <Link href="#about" className="hover:text-blue-300">About Us</Link>
+            {/* now correctly points to /about-us */}
+            <Link href="/about-us" className="hover:text-blue-300">About Us</Link>
             <Link href="/file-your-tax" className="hover:text-blue-300">File Your Tax</Link>
             <div
               className="relative"
@@ -85,20 +86,21 @@ export default function IncomeTaxServicesPage() {
               <button className="hover:text-blue-300">Services ▾</button>
               {servicesOpen && (
                 <ul className="absolute top-full left-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg">
-                  {["income-tax-services", "business-tax-services", "gst-tax-services", "gst-number-registration"].map((path) => (
-                    <li key={path}>
-                      <Link
-                        href={`/${path}`}
-                        className="block px-6 py-2 hover:bg-gray-100"
-                      >
-                        {path.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())}
+                  {[
+                    ["Income Tax Services", "/income-tax-services"],
+                    ["Business Tax Services", "/business-tax-services"],
+                    ["GST Tax Services", "/gst-tax-services"],
+                    ["GST Registration", "/gst-number-registration"],
+                  ].map(([label, href]) => (
+                    <li key={href}>
+                      <Link href={href} className="block px-6 py-2 hover:bg-gray-100">
+                        {label}
                       </Link>
                     </li>
                   ))}
                 </ul>
               )}
             </div>
-            <Link href="#contact" className="hover:text-blue-300">Contact Us</Link>
           </div>
           <button
             className="lg:hidden text-white text-2xl"
@@ -114,7 +116,8 @@ export default function IncomeTaxServicesPage() {
           <div className="lg:hidden absolute top-[64px] left-0 w-full bg-black bg-opacity-90 py-4 space-y-2 z-20">
             {[
               { label: "Home", href: "/" },
-              { label: "About Us", href: "#about" },
+              // fixed here too
+              { label: "About Us", href: "/about-us" },
               { label: "File Your Tax", href: "/file-your-tax" },
             ].map((it) => (
               <Link
@@ -151,20 +154,13 @@ export default function IncomeTaxServicesPage() {
                 ))}
               </div>
             )}
-            <Link
-              href="#contact"
-              className="block px-6 py-2 text-white hover:bg-white hover:text-black"
-              onClick={() => setMobileOpen(false)}
-            >
-              Contact Us
-            </Link>
           </div>
         )}
 
         {/* HERO CONTENT */}
         <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-center h-full text-center px-4 sm:px-6 lg:px-0">
           <motion.h1
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}

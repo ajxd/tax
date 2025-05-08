@@ -75,8 +75,7 @@ export default function GstTaxServicesPage() {
           </Link>
           <div className="hidden lg:flex items-center space-x-6">
             <Link href="/" className="hover:text-blue-300">Home</Link>
-            <Link href="#about" className="hover:text-blue-300">About Us</Link>
-            {/* no File Your Tax here */}
+            <Link href="/about-us" className="hover:text-blue-300">About Us</Link>
             <div
               className="relative"
               onMouseEnter={() => setServicesOpen(true)}
@@ -108,7 +107,6 @@ export default function GstTaxServicesPage() {
                 </ul>
               )}
             </div>
-           
           </div>
           <button
             className="lg:hidden text-white text-2xl"
@@ -122,10 +120,7 @@ export default function GstTaxServicesPage() {
         {/* MOBILE MENU */}
         {mobileOpen && (
           <div className="lg:hidden absolute top-[64px] left-0 w-full bg-black bg-opacity-90 py-4 space-y-2 z-20">
-            {[
-              { href: "/", label: "Home" },
-              { href: "#about", label: "About Us" },
-            ].map((it) => (
+            {[{ href: "/", label: "Home" },  { label: "About Us", href: "/about-us" }].map((it) => (
               <Link
                 key={it.href}
                 href={it.href}
@@ -173,7 +168,6 @@ export default function GstTaxServicesPage() {
                 </Link>
               </div>
             )}
-            
           </div>
         )}
 
@@ -195,15 +189,16 @@ export default function GstTaxServicesPage() {
           >
             Complete GST registration, filings & compliance support for Indian businesses.
           </motion.p>
-          {/* only WhatsApp button */}
-          <a
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg shadow hover:opacity-90 transition text-center"
-          >
-            WhatsApp Support
-          </a>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg shadow hover:opacity-90 transition text-center"
+            >
+              Get Help on WhatsApp
+            </a>
+          </div>
         </div>
 
         {/* PARALLAX IMAGE */}
@@ -242,9 +237,7 @@ export default function GstTaxServicesPage() {
         {/* WHY CHOOSE US */}
         <section className="py-12 sm:py-16 bg-gray-50">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
-              Why Choose Us
-            </h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">Why Choose Us</h2>
           </div>
           <div className="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {whyChoose.map((item, i) => (
@@ -264,17 +257,7 @@ export default function GstTaxServicesPage() {
           </div>
         </section>
 
-        {/* CTA WHATSAPP */}
-        <a
-          href={whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 bg-gradient-to-r from-[#25D366] to-[#128C7E] p-4 rounded-full shadow-lg text-white animate-bounce"
-        >
-          <FiPhone size={24} />
-        </a>
-
-        {/* TALK TO EXPERT */}
+        {/* TALK TO AN EXPERT */}
         <section className="py-12 sm:py-16 bg-gradient-to-r from-blue-50 to-green-50">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center gap-8">
             <motion.div
@@ -313,7 +296,6 @@ export default function GstTaxServicesPage() {
           </div>
         </section>
 
-        {/* FOOTER */}
         <Footer />
       </main>
     </>

@@ -1,4 +1,7 @@
 {
   "/about-us/page": "app/about-us/page.js",
-  "/page": "app/page.js"
+  "/gst-number-registration/page": "app/gst-number-registration/page.js",
+  "/gst-tax-services/page": "app/gst-tax-services/page.js",
+  "/page": "app/page.js",
+  "/file-your-tax/page": "app/file-your-tax/page.js"
 }

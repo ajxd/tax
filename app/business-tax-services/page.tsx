@@ -65,7 +65,7 @@ export default function BusinessTaxServicesPage() {
         <div className="absolute inset-0 bg-black/60" />
 
         {/* NAV */}
-        <nav className="absolute top-0 left-0 w-full z-20 px-6 md:px-16 py-6 flex justify-between items-center">
+        <nav className="absolute top-0 left-0 w-full z-20 px-6 md:px-16 py-6 flex justify-between items-center text-white">
           <Link href="/">
             <img
               src="/Blue Minimalist Financial Consulting Agency Logo.png"
@@ -73,10 +73,9 @@ export default function BusinessTaxServicesPage() {
               className="h-20 md:h-24 lg:h-28 object-contain drop-shadow-lg"
             />
           </Link>
-          <div className="hidden lg:flex items-center space-x-8 text-white">
+          <div className="hidden lg:flex items-center space-x-8">
             <Link href="/" className="hover:text-blue-300">Home</Link>
-            <Link href="#about" className="hover:text-blue-300">About Us</Link>
-            <Link href="/file-your-tax" className="hover:text-blue-300">File Your ITR</Link>
+            <Link href="/about-us" className="hover:text-blue-300">About Us</Link>
             <div
               className="relative"
               onMouseEnter={() => setServicesOpen(true)}
@@ -121,11 +120,7 @@ export default function BusinessTaxServicesPage() {
         {/* MOBILE MENU */}
         {mobileOpen && (
           <div className="lg:hidden absolute top-[72px] left-0 w-full bg-black bg-opacity-90 py-4 space-y-2 z-20">
-            {[
-              { href: "/", label: "Home" },
-              { href: "#about", label: "About Us" },
-              { href: "/file-your-tax", label: "File Your ITR" },
-            ].map((it) => (
+            {[{ href: "/", label: "Home" },  { label: "About Us", href: "/about-us" }].map((it) => (
               <Link
                 key={it.href}
                 href={it.href}
@@ -143,60 +138,54 @@ export default function BusinessTaxServicesPage() {
             </button>
             {servicesOpen && (
               <div className="pl-6">
-                <Link
-                  href="/income-tax-services"
-                  className="block px-6 py-2 text-white hover:bg-white hover:text-black"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Income Tax Services
-                </Link>
-                <Link
-                  href="/business-tax-services"
-                  className="block px-6 py-2 text-white hover:bg-white hover:text-black"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Business Tax Services
-                </Link>
-                <Link
-                  href="/gst-tax-services"
-                  className="block px-6 py-2 text-white hover:bg-white hover:text-black"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  GST Tax Services
-                </Link>
-                <Link
-                  href="/gst-number-registration"
-                  className="block px-6 py-2 text-white hover:bg-white hover:text-black"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  GST Registration
-                </Link>
+                {[
+                  { href: "/income-tax-services", label: "Income Tax Services" },
+                  { href: "/business-tax-services", label: "Business Tax Services" },
+                  { href: "/gst-tax-services", label: "GST Tax Services" },
+                  { href: "/gst-number-registration", label: "GST Registration" },
+                ].map((it) => (
+                  <Link
+                    key={it.href}
+                    href={it.href}
+                    className="block px-6 py-2 text-white hover:bg-white hover:text-black"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {it.label}
+                  </Link>
+                ))}
               </div>
             )}
           </div>
         )}
 
         {/* HERO CONTENT */}
-        <div className="relative z-10 max-w-6xl mx-auto flex items-center h-full px-6">
-          <motion.div
-            className="w-full md:w-1/2 text-white space-y-6"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-center h-full text-center px-4 sm:px-6 lg:px-0">
+          <motion.h1
+            className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold">
-              Business Tax Services
-            </h1>
-            <p className="text-lg md:text-xl">
-              Comprehensive corporate & partnership tax solutions for Indian businesses.
-            </p>
-            <Link
-              href="/file-your-tax"
-              className="inline-block px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow hover:opacity-90 transition"
+            Business Tax Services
+          </motion.h1>
+          <motion.p
+            className="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Comprehensive corporate & partnership tax solutions for Indian businesses.
+          </motion.p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg shadow hover:opacity-90 transition text-center"
             >
-              File Your ITR
-            </Link>
-          </motion.div>
+              Get Help on WhatsApp
+            </a>
+          </div>
         </div>
 
         {/* Parallax Banner Image */}
@@ -205,14 +194,13 @@ export default function BusinessTaxServicesPage() {
           className="hidden md:block absolute top-0 right-0 w-1/2 h-full"
         >
           <img
-            src="/services/business-tax.jpeg"
+            src="/banner.png"
             alt="Business Tax Illustration"
             className="w-full h-full object-cover rounded-l-lg shadow-lg"
           />
         </motion.div>
       </section>
 
-      {/* MAIN CONTENT */}
       <main className="flex flex-col min-h-screen">
         {/* FEATURES */}
         <section className="py-16 bg-white">
@@ -258,16 +246,6 @@ export default function BusinessTaxServicesPage() {
           </div>
         </section>
 
-        {/* STICKY WHATSAPP CTA */}
-        <a
-          href={whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="fixed bottom-8 right-8 bg-gradient-to-r from-[#25D366] to-[#128C7E] p-4 rounded-full shadow-lg text-white animate-bounce"
-        >
-          <FiPhone size={24} />
-        </a>
-
         {/* TALK TO AN EXPERT */}
         <section className="py-16 bg-gradient-to-r from-blue-50 to-green-50">
           <div className="max-w-6xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-8">
@@ -292,9 +270,7 @@ export default function BusinessTaxServicesPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <h2 className="text-3xl font-extrabold">Talk to an Expert</h2>
-              <p className="text-gray-700">
-                Our CA specialists are ready to answer any business‑tax query.
-              </p>
+              <p className="text-gray-700">Our CA specialists are ready to answer any business‑tax query.</p>
               <a
                 href={whatsappLink}
                 target="_blank"

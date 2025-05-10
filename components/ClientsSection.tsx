@@ -7,8 +7,8 @@ import { motion, Variants } from "framer-motion";
 
 const metrics = [
   { label: "Years", end: 14, suffix: "+" },
-  { label: "Clients", end: 0, suffix: "K+" },
-  { label: "Files", end: 0, suffix: "K+" },
+  { label: "Clients", end: 3, suffix: "K+" },
+  { label: "Files", end: 8, suffix: "K+" },
 ];
 
 const pillVariants: Variants = {
